@@ -1,0 +1,55 @@
+{
+    "Players": {
+        "examplePlayerID1": {
+            "Username": "PlayerOne",
+            "Pets": {
+                "bulbasaur": {
+                    "Name": "Bulby",
+                    "Food": 10,
+                    "Mood": 8,
+                    "Rest": 7,
+                    "FullRestedTime": "2024-06-15T14:30:00Z"
+                },
+                "charmander": {
+                    "Name": "Charmy",
+                    "Food": 9,
+                    "Mood": 9,
+                    "Rest": 6,
+                    "FullRestedTime": "2024-06-15T16:00:00Z"
+                }
+            }
+        },
+        "examplePlayerID2": {
+            "Username": "PlayerTwo",
+            "Pets": {
+                "squirtle": {
+                    "Name": "Squirt",
+                    "Food": 8,
+                    "Mood": 7,
+                    "Rest": 9,
+                    "FullRestedTime": "2024-06-15T15:00:00Z"
+                }
+            }
+        }
+    },
+    "Pets":{
+        "bulbasaur":{
+            "RestDrainRate": 1,
+            "MoodDrainRate":3,
+            "RestTiming": " 05-45-00",
+            "PlayColor": "#32a852"
+        },
+        "charmander":{
+            "RestDrainRate": 1,
+            "MoodDrainRate":3,
+            "RestTiming": " 05-45-00",
+            "PlayColor": "#ed6f21"
+        },
+        "squirtle":{
+            "RestDrainRate": 1,
+            "MoodDrainRate":3,
+            "RestTiming": " 05-45-00",
+            "PlayColor": "#218eed"
+        }
+    }
+}
