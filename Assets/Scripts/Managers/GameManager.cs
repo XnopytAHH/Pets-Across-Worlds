@@ -5,12 +5,13 @@ using Firebase.Auth;
 using Firebase.Extensions;
 using Firebase.Database;
 using System.Linq;
+using System.Threading.Tasks;
 
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
     public string currentPlayerID;
-    public string[] trackedImages;
+    public string activePet = null;
     [SerializeField]
     Canvas petCreationUI;
     DatabaseReference db;
@@ -50,33 +51,23 @@ public class GameManager : MonoBehaviour
             string json = JsonUtility.ToJson(newPet);
             db.Child("players").Child(currentPlayerID).Child("pets").Child(petType).SetRawJsonValueAsync(json);
             petCreationUI.enabled = false;
+            GameManager.instance.activePet = petType;
         }
-        
-    }
-    public bool CheckPetExists(string petName)
-    {
-        bool petExists = false;
 
-        db.Child("players").Child(currentPlayerID).Child("pets").GetValueAsync().ContinueWithOnMainThread(task =>
+    }
+    public async Task<bool> CheckPetExists(string petName)
+    {
+
+        var petsList = await db.Child("players").Child(currentPlayerID).Child("pets").GetValueAsync();
+        foreach (DataSnapshot petSnapshot in petsList.Children)
         {
-            if (task.IsFaulted)
+            if (petSnapshot.Key == petName)
             {
-                Debug.LogError("Failed to retrieve pets from database.");
-                petExists = false;
+                return true;
             }
-            else if (task.IsCompleted)
-            {
-                DataSnapshot snapshot = task.Result;
-                foreach (DataSnapshot petSnapshot in snapshot.Children)
-                {
-                    if (petSnapshot.Key == petName)
-                    {
-                        petExists = true;
-                    }
-                }
-            }
-        });
-        return petExists;
+        }
+
+        return false;
     }
     public string UpdatePetStats(string petName)
     {

@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.XR.ARFoundation;
 using UnityEngine.XR.ARSubsystems;
 using System.Linq;
+using System.Threading.Tasks;
 
 public class ImageTracker : MonoBehaviour
 {
@@ -52,7 +53,7 @@ public class ImageTracker : MonoBehaviour
         }
     }
 
-    void UpdateImage(ARTrackedImage trackedImage)
+    async Task UpdateImage(ARTrackedImage trackedImage)
     {
         if(trackedImage != null)
         {
@@ -64,18 +65,41 @@ public class ImageTracker : MonoBehaviour
             }
             else if (trackedImage.trackingState == TrackingState.Tracking)
             {
-                if (!GameManager.instance.trackedImages.Contains(trackedImage.referenceImage.name) && !GameManager.instance.CheckPetExists(trackedImage.referenceImage.name))
+                Debug.Log("Tracked Image: " + trackedImage.referenceImage.name);
+                Debug.Log("activePet: " + GameManager.instance.activePet);
+                
+                if (trackedImage.referenceImage.name != GameManager.instance.activePet && (GameManager.instance.activePet == null || GameManager.instance.activePet == ""))
                 {
-
-                    GameManager.instance.trackedImages = GameManager.instance.trackedImages.Append(trackedImage.referenceImage.name).ToArray();
+                    Debug.Log("No active pet. Creating or selecting pet for tracked image: " + trackedImage.referenceImage.name);
+                    bool petExists = await GameManager.instance.CheckPetExists(trackedImage.referenceImage.name);
+                    if (!petExists)
+                    {
+                    Debug.Log("Pet does not exist. Creating new pet: " + trackedImage.referenceImage.name);
                     GameManager.instance.CreateNewPet(trackedImage.referenceImage.name);
+                    }
+                    else
+                    {
+                    Debug.Log("Pet exists. Setting active pet to: " + trackedImage.referenceImage.name);
+                        GameManager.instance.activePet = trackedImage.referenceImage.name;
+                    }
                 }
-                //Enable the associated content
-                spawnedPrefabs[trackedImage.referenceImage.name].transform.position = trackedImage.transform.position;
-                spawnedPrefabs[trackedImage.referenceImage.name].transform.rotation = trackedImage.transform.rotation;
-                spawnedPrefabs[trackedImage.referenceImage.name].SetActive(true);
-                spawnedPrefabs[trackedImage.referenceImage.name].GetComponentInChildren<PetStatManager>().UpdatePetName();
+                else if (trackedImage.referenceImage.name == GameManager.instance.activePet)
+                {
+                    Debug.Log("Active pet matched with tracked image.");
+                    spawnedPrefabs[trackedImage.referenceImage.name].transform.position = trackedImage.transform.position;
+                    spawnedPrefabs[trackedImage.referenceImage.name].transform.rotation = trackedImage.transform.rotation;
+                    spawnedPrefabs[trackedImage.referenceImage.name].SetActive(true);
+                    spawnedPrefabs[trackedImage.referenceImage.name].GetComponentInChildren<PetStatManager>().UpdatePetName();
+                }
+                else
+                {
+                    Debug.Log("Tracked image does not match active pet. Ignoring.");
+                    return;
+                }
+                
             }
+            //Enable the associated content
+                    
         }
     }
 }
