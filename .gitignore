@@ -75,3 +75,7 @@ crashlytics-build.properties
 /[Aa]ssets/[Ss]treamingAssets/aa/*
 
 /Assets/Firebase
+/Assets/Plugins
+/Assets/Textmesh Pro
+*.dll
+google-services.json
