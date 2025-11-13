@@ -79,6 +79,12 @@ public class LoginAndRegister : MonoBehaviour
         {
             yield return new WaitForSeconds(0.5f);
         }
+        if (isLoggingIn == false)
+        {
+            DatabaseReference db = FirebaseDatabase.DefaultInstance.RootReference;
+            db.Child("players").Child(GameManager.instance.currentPlayerID).Child("username").SetValueAsync(GameObject.Find("UsernameInput").GetComponent<TMP_InputField>().text);
+            db.Child("players").Child(GameManager.instance.currentPlayerID).Child("Pets");
+        }
         SceneManager.LoadScene("MainMenu");
     }
 }

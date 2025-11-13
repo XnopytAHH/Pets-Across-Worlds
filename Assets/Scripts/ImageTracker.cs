@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.XR.ARFoundation;
 using UnityEngine.XR.ARSubsystems;
-
+using System.Linq;
 
 public class ImageTracker : MonoBehaviour
 {
@@ -56,6 +56,7 @@ public class ImageTracker : MonoBehaviour
     {
         if(trackedImage != null)
         {
+            
             if (trackedImage.trackingState == TrackingState.Limited || trackedImage.trackingState == TrackingState.None)
             {
                 //Disable the associated content
@@ -63,10 +64,17 @@ public class ImageTracker : MonoBehaviour
             }
             else if (trackedImage.trackingState == TrackingState.Tracking)
             {
+                if (!GameManager.instance.trackedImages.Contains(trackedImage.referenceImage.name) && !GameManager.instance.CheckPetExists(trackedImage.referenceImage.name))
+                {
+
+                    GameManager.instance.trackedImages = GameManager.instance.trackedImages.Append(trackedImage.referenceImage.name).ToArray();
+                    GameManager.instance.CreateNewPet(trackedImage.referenceImage.name);
+                }
                 //Enable the associated content
                 spawnedPrefabs[trackedImage.referenceImage.name].transform.position = trackedImage.transform.position;
                 spawnedPrefabs[trackedImage.referenceImage.name].transform.rotation = trackedImage.transform.rotation;
                 spawnedPrefabs[trackedImage.referenceImage.name].SetActive(true);
+                spawnedPrefabs[trackedImage.referenceImage.name].GetComponentInChildren<PetStatManager>().UpdatePetName();
             }
         }
     }
