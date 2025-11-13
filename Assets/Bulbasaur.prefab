@@ -120,7 +120,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 5159931320237725972}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2411708647439443226}
+        m_TargetAssemblyTypeName: PetStatManager, Assembly-CSharp
+        m_MethodName: SleepPet
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &303535841960978756
 GameObject:
   m_ObjectHideFlags: 0
@@ -526,9 +538,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 72bf1346a4f6a5445ac0070379aec7d6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  foodLevel: 10
-  moodLevel: 10
-  energyLevel: 10
+  foodLevel: 4
+  moodLevel: 4
+  energyLevel: 4
   petName: {fileID: 2367160710143893800}
   foodSlider: {fileID: 3654253049327501367}
   moodSlider: {fileID: 1842437140307815087}
@@ -1017,7 +1029,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 5438438536620750065}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2411708647439443226}
+        m_TargetAssemblyTypeName: PetStatManager, Assembly-CSharp
+        m_MethodName: PlayWithPet
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &5196083942147632053
 GameObject:
   m_ObjectHideFlags: 0
@@ -1495,7 +1519,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 396088234585171998}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2411708647439443226}
+        m_TargetAssemblyTypeName: PetStatManager, Assembly-CSharp
+        m_MethodName: FeedPet
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &7407386386478255441
 GameObject:
   m_ObjectHideFlags: 0

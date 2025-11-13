@@ -11,11 +11,14 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
     public string currentPlayerID;
+    public Pet[] currentPlayerPets;
+    public string currentPlayerName;
     public string activePet = null;
     [SerializeField]
     Canvas petCreationUI;
     DatabaseReference db;
     string petTypeTemp;
+    public string sleepTimeTemp;
     void Awake()
     {
         db = FirebaseDatabase.DefaultInstance.RootReference;
@@ -55,19 +58,41 @@ public class GameManager : MonoBehaviour
         }
 
     }
-    public async Task<bool> CheckPetExists(string petName)
+    public void CheckPetExists(string petName)
     {
-
-        var petsList = await db.Child("players").Child(currentPlayerID).Child("pets").GetValueAsync();
-        foreach (DataSnapshot petSnapshot in petsList.Children)
+        if (petCreationUI.enabled == true)
         {
-            if (petSnapshot.Key == petName)
-            {
-                return true;
-            }
+            Debug.Log("Pet creation in progress. Skipping existence check.");
+            return;
         }
+        
+        db.Child("players").Child(currentPlayerID).Child("pets").Child(petName).GetValueAsync().ContinueWithOnMainThread(task =>
+        {
+            if (task.IsFaulted)
+            {
+                Debug.LogError("Failed to check pet existence in database.");
+            }
+            else if (task.IsCompleted)
+            {
+                DataSnapshot snapshot = task.Result;
 
-        return false;
+                if (snapshot.Exists)
+                {
+                    CheckPetExistsCallback(true);
+                    Debug.Log("Pet " + petName + " exists in database.");
+                }
+                else
+                {
+                    CheckPetExistsCallback(false);
+                    Debug.Log("Pet " + petName + " does not exist in database.");
+                }
+            }
+        });
+    }
+    private void CheckPetExistsCallback(bool result)
+    {
+        Debug.Log("Called back with result: " + result);
+        GameObject.Find("XR Origin (AR Rig)").GetComponent<ImageTracker>().petExists = result;
     }
     public string UpdatePetStats(string petName)
     {
