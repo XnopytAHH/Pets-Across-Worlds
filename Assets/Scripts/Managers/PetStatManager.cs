@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Threading.Tasks;
 using System.Xml.Serialization;
 using TMPro;
 using UnityEngine;
@@ -39,9 +40,14 @@ public class PetStatManager : MonoBehaviour
     }
     public void UpdatePetName()
     {
-        petName.text = GameManager.instance.UpdatePetStats(gameObject.transform.parent.name);
+        petName.text = GameManager.instance.currentPlayerPets[GameManager.instance.activePet].petName;
     }
     public void SleepPet()
+    {
+        StartCoroutine(SleepCoroutine());
+        
+    }
+    IEnumerator SleepCoroutine()
     {
         string exampleSleepTime = "05-45-00";
         string petWakeupTime = System.DateTime.Now.AddHours(int.Parse(exampleSleepTime.Substring(0, 2)))
@@ -49,11 +55,14 @@ public class PetStatManager : MonoBehaviour
             .AddSeconds(int.Parse(exampleSleepTime.Substring(6, 2))).ToString("yyyy-MM-dd HH:mm:ss");
         Debug.Log("Pet will wake up at: " + petWakeupTime);
         GameManager.instance.sleepTimeTemp = petWakeupTime;
+        yield return DatabaseManager.instance.SavePlayerData(GameManager.instance.currentPlayerID);
         SceneManager.LoadScene("Sleep");
+
     }
     public void PlayWithPet()
     {
         moodLevel = Mathf.Min(moodLevel + 1f, 10f);
+        
     }
     public void FeedPet()
     {

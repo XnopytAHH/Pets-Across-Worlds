@@ -14,7 +14,7 @@ public class ImageTracker : MonoBehaviour
     private GameObject[] placeablePrefabs;
 
     private Dictionary<string, GameObject> spawnedPrefabs = new Dictionary<string, GameObject>();
-    public bool? petExists = null;
+    public bool petExists = false;
     public bool petActive = false;
 
     private void Start()
@@ -95,7 +95,7 @@ public class ImageTracker : MonoBehaviour
                 {
                     if (trackedImage.referenceImage.name == GameManager.instance.activePet)
                     {
-                        Debug.Log("Active pet matched with tracked image.");
+                        
                         spawnedPrefabs[trackedImage.referenceImage.name].transform.position = trackedImage.transform.position;
                         spawnedPrefabs[trackedImage.referenceImage.name].transform.rotation = trackedImage.transform.rotation;
                         spawnedPrefabs[trackedImage.referenceImage.name].SetActive(true);
@@ -103,7 +103,7 @@ public class ImageTracker : MonoBehaviour
                     }
                     else
                     {
-                        Debug.Log("Tracked image does not match active pet. Ignoring.");
+                        
                         return;
                     }
                 }
