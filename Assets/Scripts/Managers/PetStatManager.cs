@@ -8,9 +8,6 @@ using UnityEngine.UI;
 
 public class PetStatManager : MonoBehaviour
 {
-    public float foodLevel = 4f;
-    public float moodLevel = 4f;
-    public float energyLevel = 4f;
     [SerializeField]
     private TextMeshProUGUI petName;
     [SerializeField]
@@ -21,9 +18,10 @@ public class PetStatManager : MonoBehaviour
     private Slider energySlider;
     void Update()
     {
-        foodSlider.value = foodLevel;
-        moodSlider.value = moodLevel;
-        energySlider.value = energyLevel;
+        if (GameManager.instance.activePet == null) return;
+        foodSlider.value = GameManager.instance.currentPlayerPets[GameManager.instance.activePet].foodLevel;
+        moodSlider.value = GameManager.instance.currentPlayerPets[GameManager.instance.activePet].moodLevel;
+        energySlider.value = GameManager.instance.currentPlayerPets[GameManager.instance.activePet].energyLevel;
     }
     void Start()
     {
@@ -35,7 +33,7 @@ public class PetStatManager : MonoBehaviour
         while (true)
         {
             yield return new WaitForSeconds(1f);
-            energyLevel -= 0.01f;
+            GameManager.instance.currentPlayerPets[GameManager.instance.activePet].energyLevel -= 0.1f;
         }
     }
     public void UpdatePetName()
@@ -53,6 +51,7 @@ public class PetStatManager : MonoBehaviour
         string petWakeupTime = System.DateTime.Now.AddHours(int.Parse(exampleSleepTime.Substring(0, 2)))
             .AddMinutes(int.Parse(exampleSleepTime.Substring(3, 2)))
             .AddSeconds(int.Parse(exampleSleepTime.Substring(6, 2))).ToString("yyyy-MM-dd HH:mm:ss");
+        GameManager.instance.currentPlayerPets[GameManager.instance.activePet].fullRestedTime = petWakeupTime;
         Debug.Log("Pet will wake up at: " + petWakeupTime);
         GameManager.instance.sleepTimeTemp = petWakeupTime;
         yield return DatabaseManager.instance.SavePlayerData(GameManager.instance.currentPlayerID);
@@ -61,12 +60,12 @@ public class PetStatManager : MonoBehaviour
     }
     public void PlayWithPet()
     {
-        moodLevel = Mathf.Min(moodLevel + 1f, 10f);
+        GameManager.instance.currentPlayerPets[GameManager.instance.activePet].moodLevel = Mathf.Min(GameManager.instance.currentPlayerPets[GameManager.instance.activePet].moodLevel + 1f, 10f);
         
     }
     public void FeedPet()
     {
-        foodLevel = Mathf.Min(foodLevel + 1f, 10f);
+        GameManager.instance.currentPlayerPets[GameManager.instance.activePet].foodLevel = Mathf.Min(GameManager.instance.currentPlayerPets[GameManager.instance.activePet].foodLevel + 1f, 10f);
     }
 }
 

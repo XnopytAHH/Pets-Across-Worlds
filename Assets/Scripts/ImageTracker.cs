@@ -4,6 +4,7 @@ using UnityEngine.XR.ARFoundation;
 using UnityEngine.XR.ARSubsystems;
 using System.Linq;
 using System.Threading.Tasks;
+using Unity.XR.CoreUtils;
 
 public class ImageTracker : MonoBehaviour
 {
@@ -77,9 +78,28 @@ public class ImageTracker : MonoBehaviour
                         if (petExists == false)
                         {
                             GameManager.instance.CreateNewPet(trackedImage.referenceImage.name);
+                            
                         }
                         else if (petExists == true)
                         {
+                            if (GameManager.instance.currentPlayerPets[trackedImage.referenceImage.name].fullRestedTime != "")
+                            {
+                                if (System.DateTime.Parse(GameManager.instance.currentPlayerPets[trackedImage.referenceImage.name].fullRestedTime) > System.DateTime.Now)
+                                {
+                                    spawnedPrefabs[trackedImage.referenceImage.name].transform.position = trackedImage.transform.position;
+                                    spawnedPrefabs[trackedImage.referenceImage.name].transform.rotation = trackedImage.transform.rotation;
+                                    spawnedPrefabs[trackedImage.referenceImage.name].SetActive(true);
+                                    spawnedPrefabs[trackedImage.referenceImage.name].GetComponentInChildren<PetBehaviour>().petAwake = false;
+                                    string timeTillWake = GameManager.instance.PetIsResting(trackedImage.referenceImage.name);
+                                    spawnedPrefabs[trackedImage.referenceImage.name].GetComponentInChildren<PetBehaviour>().UpdateRestUI(timeTillWake);
+                                    return;
+                                }
+                                else
+                                {
+                                    GameManager.instance.currentPlayerPets[trackedImage.referenceImage.name].fullRestedTime = "";
+                                    GameManager.instance.UpdatePetStatsAfterRest(trackedImage.referenceImage.name);
+                                }
+                            }
                             GameManager.instance.activePet = trackedImage.referenceImage.name;
                             petActive = true;
                             Debug.Log("PET ACTIVE SET TO TRUE");
@@ -99,6 +119,7 @@ public class ImageTracker : MonoBehaviour
                         spawnedPrefabs[trackedImage.referenceImage.name].transform.position = trackedImage.transform.position;
                         spawnedPrefabs[trackedImage.referenceImage.name].transform.rotation = trackedImage.transform.rotation;
                         spawnedPrefabs[trackedImage.referenceImage.name].SetActive(true);
+                        spawnedPrefabs[trackedImage.referenceImage.name].GetComponentInChildren<PetBehaviour>().petAwake = true;
                         spawnedPrefabs[trackedImage.referenceImage.name].GetComponentInChildren<PetStatManager>().UpdatePetName();
                     }
                     else

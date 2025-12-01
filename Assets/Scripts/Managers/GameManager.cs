@@ -7,6 +7,7 @@ using Firebase.Database;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Collections.Generic;
+using UnityEditor.PackageManager.Requests;
 
 public class GameManager : MonoBehaviour
 {
@@ -80,5 +81,16 @@ public class GameManager : MonoBehaviour
         GameObject.Find("XR Origin (AR Rig)").GetComponent<ImageTracker>().petExists = false;
         return false;
     }
-    
-}
+    public string PetIsResting(string petName)
+    {
+        petCreationUI.enabled = false;
+        GameManager.instance.activePet = null;
+        string timeTillWake = (System.DateTime.Parse(GameManager.instance.currentPlayerPets[petName].fullRestedTime) - System.DateTime.Now).ToString();
+        return timeTillWake;
+    }
+    public void UpdatePetStatsAfterRest(string petName)
+    {
+        
+        GameManager.instance.currentPlayerPets[petName].energyLevel = 10f;
+    }
+}   
