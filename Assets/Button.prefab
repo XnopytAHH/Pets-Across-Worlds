@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 8837908708945061879}
   - component: {fileID: 4673842804694993126}
   - component: {fileID: 2350041844145616227}
+  - component: {fileID: 3171686373305333913}
   m_Layer: 5
   m_Name: Button
   m_TagString: Untagged
@@ -119,4 +120,28 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 4673842804694993126}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 3171686373305333913}
+        m_TargetAssemblyTypeName: GameButton, Assembly-CSharp
+        m_MethodName: OnButtonTap
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &3171686373305333913
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4752911932064086428}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f6f9431e84677ac4087822f7e405341c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'

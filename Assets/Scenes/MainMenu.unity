@@ -619,6 +619,9 @@ MonoBehaviour:
   trackedImageManager: {fileID: 1342079524}
   placeablePrefabs:
   - {fileID: 5196083942147632053, guid: b08a50f3f741a27468511fb876001a6a, type: 3}
+  - {fileID: 5386086576424639066, guid: f3001a22a22407d4da3cd4e2f38c4053, type: 3}
+  petExists: 0
+  petActive: 0
 --- !u!114 &1342079524
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -1837,7 +1837,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7407386386478255441}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -1928,9 +1928,9 @@ MonoBehaviour:
   m_OverrideTileSize: 0
   m_TileSize: 256
   m_OverrideVoxelSize: 0
-  m_VoxelSize: 0.036666665
+  m_VoxelSize: 0.016666668
   m_MinRegionArea: 2
-  m_NavMeshData: {fileID: 23800000, guid: f3a05516c24942a4593adaeabc088078, type: 2}
+  m_NavMeshData: {fileID: 23800000, guid: 9d7433e22b15ad7439e809da3868e1a2, type: 2}
   m_BuildHeightMesh: 0
 --- !u!1 &7412389134158526920
 GameObject:

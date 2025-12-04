@@ -5,6 +5,7 @@ using UnityEngine.XR.ARSubsystems;
 using System.Linq;
 using System.Threading.Tasks;
 using Unity.XR.CoreUtils;
+using System.Collections;
 
 public class ImageTracker : MonoBehaviour
 {
@@ -17,7 +18,7 @@ public class ImageTracker : MonoBehaviour
     private Dictionary<string, GameObject> spawnedPrefabs = new Dictionary<string, GameObject>();
     public bool petExists = false;
     public bool petActive = false;
-
+    public string currentGameState = "WaitingForPet";
     private void Start()
     {
         if (trackedImageManager != null)
@@ -25,6 +26,46 @@ public class ImageTracker : MonoBehaviour
             trackedImageManager.trackablesChanged.AddListener(OnImageChanged);
             SetupPrefabs();
         }
+        StartCoroutine(MainState());
+    }
+    private IEnumerator MainState()
+    {
+        while (true)
+        {
+            if (currentGameState == "MainState")
+            {
+                yield return null;
+            }
+            
+        }
+    }
+    private IEnumerator FeedState()
+    {
+        while (true)
+        {
+            if (currentGameState == "FeedState")
+            {
+                // Feed state logic here
+                yield return null;
+            }
+        }
+    }
+    private IEnumerator PlayState()
+    {
+        while (true)
+        {
+            if (currentGameState == "PlayState")
+            {
+                // Play state logic here
+                yield return null;
+            }
+        }
+    }
+    private IEnumerator SwitchStates(string newState)
+    {
+        currentGameState = newState;
+        StartCoroutine(currentGameState);
+        yield return null;
     }
 
     void SetupPrefabs()

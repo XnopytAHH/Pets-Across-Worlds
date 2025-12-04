@@ -6,6 +6,7 @@ TagManager:
   tags:
   - EmailField
   - PasswordField
+  - GameplayManager
   layers:
   - Default
   - TransparentFX
