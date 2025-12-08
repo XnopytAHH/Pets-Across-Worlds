@@ -21,6 +21,14 @@ public class GameManager : MonoBehaviour
     DatabaseReference db;
     string petTypeTemp;
     public string sleepTimeTemp;
+
+    [SerializeField]
+    private string[] petTypes;
+    [SerializeField]
+    private string[] favoriteFoods;
+    [SerializeField]
+    private string[] dislikedFoods;
+    public Dictionary<string, string[]> petFoodPreferences;
     void Awake()
     {
         db = FirebaseDatabase.DefaultInstance.RootReference;
@@ -34,6 +42,11 @@ public class GameManager : MonoBehaviour
             Destroy(gameObject);
         }
         petCreationUI.enabled = false;
+        petFoodPreferences = new Dictionary<string, string[]>();
+        for (int i = 0; i < petTypes.Length; i++)
+        {
+            petFoodPreferences[petTypes[i]] = new string[] { favoriteFoods[i], dislikedFoods[i] };
+        }
     }
     public void CreateNewPet(string petType)
     {
@@ -52,7 +65,7 @@ public class GameManager : MonoBehaviour
         }
         else
         {
-            Pet newPet = new Pet(petName, 10f, 10f, 10f, "");
+            Pet newPet = new Pet(petName, 5f, 5f, 10f, "");
             GameManager.instance.currentPlayerPets.Add(petType, newPet);
             petCreationUI.enabled = false;
             GameManager.instance.activePet = petType;

@@ -16,6 +16,8 @@ public class PetStatManager : MonoBehaviour
     private Slider moodSlider;
     [SerializeField]
     private Slider energySlider;
+    [SerializeField]
+    private GameObject foodPrefab;
     void Update()
     {
         if (GameManager.instance.activePet == null) return;
@@ -65,7 +67,7 @@ public class PetStatManager : MonoBehaviour
     }
     public void FeedPet()
     {
-        GameManager.instance.currentPlayerPets[GameManager.instance.activePet].foodLevel = Mathf.Min(GameManager.instance.currentPlayerPets[GameManager.instance.activePet].foodLevel + 1f, 10f);
+        GameManager.instance.GetComponentInChildren<FoodMenuBehaviour>().OpenMenu();
     }
 }
 

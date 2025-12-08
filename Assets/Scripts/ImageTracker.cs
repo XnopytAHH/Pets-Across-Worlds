@@ -26,47 +26,9 @@ public class ImageTracker : MonoBehaviour
             trackedImageManager.trackablesChanged.AddListener(OnImageChanged);
             SetupPrefabs();
         }
-        StartCoroutine(MainState());
+        
     }
-    private IEnumerator MainState()
-    {
-        while (true)
-        {
-            if (currentGameState == "MainState")
-            {
-                yield return null;
-            }
-            
-        }
-    }
-    private IEnumerator FeedState()
-    {
-        while (true)
-        {
-            if (currentGameState == "FeedState")
-            {
-                // Feed state logic here
-                yield return null;
-            }
-        }
-    }
-    private IEnumerator PlayState()
-    {
-        while (true)
-        {
-            if (currentGameState == "PlayState")
-            {
-                // Play state logic here
-                yield return null;
-            }
-        }
-    }
-    private IEnumerator SwitchStates(string newState)
-    {
-        currentGameState = newState;
-        StartCoroutine(currentGameState);
-        yield return null;
-    }
+    
 
     void SetupPrefabs()
     {
