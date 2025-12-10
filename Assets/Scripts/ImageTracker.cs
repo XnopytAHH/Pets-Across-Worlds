@@ -66,8 +66,7 @@ public class ImageTracker : MonoBehaviour
 
             if (trackedImage.trackingState == TrackingState.Limited || trackedImage.trackingState == TrackingState.None)
             {
-                //Disable the associated content
-                spawnedPrefabs[trackedImage.referenceImage.name].SetActive(false);
+                Debug.Log("Tracking lost for image: " + trackedImage.referenceImage.name);
             }
             else if (trackedImage.trackingState == TrackingState.Tracking)
             {
@@ -104,6 +103,7 @@ public class ImageTracker : MonoBehaviour
                                 }
                             }
                             GameManager.instance.activePet = trackedImage.referenceImage.name;
+                            spawnedPrefabs[trackedImage.referenceImage.name].GetNamedChild("Capsule").tag = "ActivePet";
                             petActive = true;
                             Debug.Log("PET ACTIVE SET TO TRUE");
                         }

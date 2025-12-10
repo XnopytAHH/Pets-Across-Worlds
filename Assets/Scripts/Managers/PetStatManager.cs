@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
+using NUnit.Framework.Constraints;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -29,13 +30,14 @@ public class PetStatManager : MonoBehaviour
     {
         StartCoroutine(DecreaseStatsOverTime());
     }
-
+        
     private IEnumerator DecreaseStatsOverTime()
     {
         while (true)
         {
             yield return new WaitForSeconds(1f);
             GameManager.instance.currentPlayerPets[GameManager.instance.activePet].energyLevel -= 0.1f;
+            Debug.Log ("Energy Level Decreased to: " + GameManager.instance.currentPlayerPets[GameManager.instance.activePet].energyLevel);
         }
     }
     public void UpdatePetName()
@@ -44,6 +46,7 @@ public class PetStatManager : MonoBehaviour
     }
     public void SleepPet()
     {
+        
         StartCoroutine(SleepCoroutine());
         
     }
@@ -62,8 +65,8 @@ public class PetStatManager : MonoBehaviour
     }
     public void PlayWithPet()
     {
-        GameManager.instance.currentPlayerPets[GameManager.instance.activePet].moodLevel = Mathf.Min(GameManager.instance.currentPlayerPets[GameManager.instance.activePet].moodLevel + 1f, 10f);
-        
+       gameObject.GetComponent<Play>().StartGame();
+       GameObject.FindGameObjectWithTag("ActivePet").GetComponent<PetBehaviour>().StartPlaying();
     }
     public void FeedPet()
     {

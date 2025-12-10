@@ -9,7 +9,7 @@ public class PetBehaviour : MonoBehaviour
     
     public bool petAwake = true;
     [SerializeField]
-    private GameObject petUI;
+    public GameObject petUI;
     [SerializeField]
     private GameObject restUI;
 
@@ -36,6 +36,12 @@ public class PetBehaviour : MonoBehaviour
         offsetPosition = GameObject.Find("Movement Plane").transform.position + new Vector3(offsetPosition.x, 0, offsetPosition.z);
         offsetPosition.y = gameObject.transform.position.y;
         gameObject.transform.position = offsetPosition;
+    }
+    public void StartPlaying()
+    {
+        Debug.Log("Pet Started Playing");
+        petUI.GetComponent<Canvas>().enabled = false;
+        StartCoroutine(GameObject.Find("Location Ref").GetComponent<PetLocationRef>().SwitchStates("Playing"));
     }
 
     public void UpdateRestUI(string timeTillWake)

@@ -8,7 +8,7 @@ using UnityEngine.UIElements;
 using UnityEditor.Analytics;
 public class PetLocationRef : MonoBehaviour
 {
-    
+
     private NavMeshAgent npcAgent;
     public string currentState;
 
@@ -26,7 +26,7 @@ public class PetLocationRef : MonoBehaviour
         npcAgent = GetComponent<NavMeshAgent>();
         currentState = "Idle";
         StartCoroutine(SwitchStates(currentState));
-        
+
     }
 
     IEnumerator Walking()
@@ -34,71 +34,88 @@ public class PetLocationRef : MonoBehaviour
         Debug.Log("Started Walking");
         while (currentState == "Walking")
         {
-            
+
             if (npcAgent.remainingDistance <= npcAgent.stoppingDistance)
             {
 
                 StartCoroutine(SwitchStates("Idle"));
             }
-            
+
             npcAgent.SetDestination(patrolPoint);
             yield return null;
         }
 
     }
+    IEnumerator Playing()
+    {
+        Debug.Log("Started Playing");
+        npcAgent.isStopped = true;
+        npcAgent.updateRotation = false; // Disable automatic rotation
+        // Face the camera
+        Transform cameraTransform = Camera.main.transform;
+        Vector3 directionToCamera = cameraTransform.position - transform.position;
+        directionToCamera.y = 0; // Keep only the horizontal direction
+        Quaternion targetRotation = Quaternion.LookRotation(directionToCamera);
+        while (currentState == "Playing")
+        {
+            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * 2f);
+            yield return null;
+        }
+    }
 
     IEnumerator Idle()
-{
-    Debug.Log("Started Idle");
-    StartCoroutine(IdleTimer());
-
-    // 1. Generate a random point on the ground only
-    Vector2 circle = Random.insideUnitCircle * walkRadius;
-    Vector3 randomDirection = new Vector3(circle.x, transform.position.y, circle.y);
-
-    // 2. Convert to world position
-    randomDirection += transform.position;
-
-    // 3. Sample the NavMesh correctly (ALL AREAS)
-    NavMeshHit hit;
-    if (!NavMesh.SamplePosition(randomDirection, out hit, walkRadius, NavMesh.AllAreas))
     {
-        Debug.LogWarning("SamplePosition FAILED — no NavMesh nearby");
-        yield break;
-    }
+        Debug.Log("Started Idle");
+        StartCoroutine(IdleTimer());
 
-    patrolPoint = hit.position;
-    Debug.Log("New Patrol Point: " + patrolPoint);
+        // 1. Generate a random point on the ground only
+        Vector2 circle = Random.insideUnitCircle * walkRadius;
+        Vector3 randomDirection = new Vector3(circle.x, transform.position.y, circle.y);
 
-    // 4. Idle loop
-    while (currentState == "Idle")
-    {
-        npcAgent.isStopped = true;
-        yield return null;
+        // 2. Convert to world position
+        randomDirection += transform.position;
+
+        // 3. Sample the NavMesh correctly (ALL AREAS)
+        NavMeshHit hit;
+        if (!NavMesh.SamplePosition(randomDirection, out hit, walkRadius, NavMesh.AllAreas))
+        {
+            Debug.LogWarning("SamplePosition failed");
+            yield break;
+        }
+
+        patrolPoint = hit.position;
+        Debug.Log("New Patrol Point: " + patrolPoint);
+
+        // 4. Idle loop
+        while (currentState == "Idle")
+        {
+            npcAgent.isStopped = true;
+            yield return null;
+        }
     }
-}
     IEnumerator IdleTimer()
     {
         yield return new WaitForSeconds(5);
         if (currentState == "Idle")
         {
-            
-                StartCoroutine(SwitchStates("Walking"));
+
+            StartCoroutine(SwitchStates("Walking"));
 
         }
     }
-        public IEnumerator SwitchStates(string newState)
+    public IEnumerator SwitchStates(string newState)
     {
         npcAgent.updateRotation = true; // Re-enable automatic rotation
         npcAgent.isStopped = false; // Resume the agent's movement
         StopCoroutine(currentState);
         currentState = newState;
         StartCoroutine(currentState);
+        Debug.Log("Switched to state: " + currentState);
         yield return null;
     }
     public Vector3 GetPetPosition(float smallScale)
     {
-        float scaleFactor = smallScale/GameObject.Find("Plane Ref").transform.localScale.x;
+        float scaleFactor = smallScale / GameObject.Find("Plane Ref").transform.localScale.x;
         Vector3 gridPosition = GameObject.Find("Plane Ref").transform.position;
         Vector3 petWorldPosition = transform.position;
         gridPosition = petWorldPosition - gridPosition;

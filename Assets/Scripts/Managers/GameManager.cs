@@ -7,7 +7,7 @@ using Firebase.Database;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Collections.Generic;
-using UnityEditor.PackageManager.Requests;
+
 
 public class GameManager : MonoBehaviour
 {
@@ -106,4 +106,5 @@ public class GameManager : MonoBehaviour
         
         GameManager.instance.currentPlayerPets[petName].energyLevel = 10f;
     }
+    
 }   

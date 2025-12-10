@@ -7,6 +7,8 @@ TagManager:
   - EmailField
   - PasswordField
   - GameplayManager
+  - Pet
+  - ActivePet
   layers:
   - Default
   - TransparentFX
