@@ -141,6 +141,10 @@ PrefabInstance:
       value: XR Origin (AR Rig)
       objectReference: {fileID: 0}
     - target: {fileID: 2512387470528047737, guid: 48cb3fb68c91eb94999fd99957eb0cae, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2512387470528047737, guid: 48cb3fb68c91eb94999fd99957eb0cae, type: 3}
       propertyPath: m_PlanePrefab
       value: 
       objectReference: {fileID: 8217645665137371754, guid: 2dac07802922ee34fb2df88fc4eef968, type: 3}
@@ -619,7 +623,7 @@ MonoBehaviour:
   trackedImageManager: {fileID: 1342079524}
   placeablePrefabs:
   - {fileID: 5196083942147632053, guid: b08a50f3f741a27468511fb876001a6a, type: 3}
-  - {fileID: 5386086576424639066, guid: f3001a22a22407d4da3cd4e2f38c4053, type: 3}
+  - {fileID: 5196083942147632053, guid: 57fb52cdbda0c994a8a4a744d42f1f41, type: 3}
   petExists: 0
   petActive: 0
   currentGameState: WaitingForPet
@@ -651,7 +655,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 261137444957686654, guid: e6d0b86692cd3fe43a6d54f008fe7415, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -539.9998
+      value: -539.9992
       objectReference: {fileID: 0}
     - target: {fileID: 791659705516018666, guid: e6d0b86692cd3fe43a6d54f008fe7415, type: 3}
       propertyPath: m_AnchorMax.x

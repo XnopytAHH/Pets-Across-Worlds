@@ -65,7 +65,7 @@ public class GameManager : MonoBehaviour
         }
         else
         {
-            Pet newPet = new Pet(petName, 5f, 5f, 10f, "");
+            Pet newPet = new Pet(petName, 5f, 5f, 10f, "", 0);
             GameManager.instance.currentPlayerPets.Add(petType, newPet);
             petCreationUI.enabled = false;
             GameManager.instance.activePet = petType;

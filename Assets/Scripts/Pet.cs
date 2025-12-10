@@ -6,13 +6,15 @@ public class Pet
     public float moodLevel;
     public float energyLevel;
     public string fullRestedTime;
+    public int highscore;
 
-    public Pet(string PetName, float FoodLevel, float MoodLevel, float EnergyLevel, string FullRestedTime)
+    public Pet(string PetName, float FoodLevel, float MoodLevel, float EnergyLevel, string FullRestedTime, int Highscore)
     {
         petName = PetName;
         foodLevel = FoodLevel;
         moodLevel = MoodLevel;
         energyLevel = EnergyLevel;
         fullRestedTime = FullRestedTime;
+        highscore = Highscore;
     }
 }

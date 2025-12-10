@@ -52,6 +52,7 @@ public class Play : MonoBehaviour
             }
             else
             {
+                
                 Debug.Log("Missed Catch");
                 Destroy(tapPosition);
                 yield return new WaitForSeconds(1);

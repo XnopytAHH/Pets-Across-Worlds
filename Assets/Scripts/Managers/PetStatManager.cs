@@ -19,6 +19,7 @@ public class PetStatManager : MonoBehaviour
     private Slider energySlider;
     [SerializeField]
     private GameObject foodPrefab;
+    public bool isPaused = false;
     void Update()
     {
         if (GameManager.instance.activePet == null) return;
@@ -36,6 +37,7 @@ public class PetStatManager : MonoBehaviour
         while (true)
         {
             yield return new WaitForSeconds(1f);
+            if (isPaused) continue;
             GameManager.instance.currentPlayerPets[GameManager.instance.activePet].energyLevel -= 0.1f;
             Debug.Log ("Energy Level Decreased to: " + GameManager.instance.currentPlayerPets[GameManager.instance.activePet].energyLevel);
         }
@@ -65,12 +67,16 @@ public class PetStatManager : MonoBehaviour
     }
     public void PlayWithPet()
     {
+       
+       isPaused = true;
        gameObject.GetComponent<Play>().StartGame();
        GameObject.FindGameObjectWithTag("ActivePet").GetComponent<PetBehaviour>().StartPlaying();
     }
+    
     public void FeedPet()
     {
         GameManager.instance.GetComponentInChildren<FoodMenuBehaviour>().OpenMenu();
+        isPaused = true;
     }
 }
 
