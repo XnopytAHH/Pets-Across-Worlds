@@ -16,6 +16,7 @@ public class Play : MonoBehaviour
     [SerializeField]
     GameObject ball;
     public int score = 0;
+    float duration = 2.0f;
     void Start()
     {
         canvas = GameObject.Find("GameUI").GetComponent<Canvas>();
@@ -28,6 +29,7 @@ public class Play : MonoBehaviour
         canvas.enabled = true;
         ball.GetComponent<MeshRenderer>().enabled = true;
         score = 0;
+        duration = 2.0f;
 
     }
     
@@ -40,36 +42,45 @@ public class Play : MonoBehaviour
             randomScreenY = Random.Range(0, Screen.height);
             ball.transform.position = BallCatchArea.transform.position;
             tapPosition = Instantiate(buttonPrefab, new Vector3(randomScreenX, randomScreenY, 0), Quaternion.identity, canvas.transform);
-            StartCoroutine(StartBallTravel(Camera.main.ScreenToWorldPoint(new Vector3(randomScreenX, randomScreenY, 0.5f)), tapPosition));
+            StartCoroutine(StartBallTravel(Camera.main.ScreenToWorldPoint(new Vector3(randomScreenX, randomScreenY, 0.5f)), tapPosition, duration));
             yield return WaitForTap();
             if (tapped)
             {
                 Debug.Log("Ball Returning");
-                StartCoroutine(StartBallReturn(ball.transform.position));
+                StartCoroutine(StartBallReturn(ball.transform.position, duration));
                 Destroy(tapPosition);
-                yield return new WaitForSeconds(2);
+
+                yield return new WaitForSeconds(duration);
+                if  (score % 5 == 0 && score != 0)
+                {
+                    duration -= 0.1f;
+                    if (duration < 0.5f)
+                    {
+                        duration = 0.5f;
+                    }
+                }
                 
             }
             else
             {
                 
-                Debug.Log("Missed Catch");
                 Destroy(tapPosition);
+                ball.GetComponent<MeshRenderer>().enabled = false;
                 yield return new WaitForSeconds(1);
-                score = 0;
+                GameManager.instance.ShowGameOverUI(score);
+                yield break;
 
             }
             
             
         }
     }
-    IEnumerator StartBallTravel(Vector3 targetPosition, GameObject tapPosition)
+    IEnumerator StartBallTravel(Vector3 targetPosition, GameObject tapPosition, float duration)
     {
         tapped = false;
         tapPosition.GetComponent<UnityEngine.UI.Image>().color = new Color(1, 1, 1, 0);
         Vector3 start = ball.transform.position;
         Vector3 end = targetPosition;
-        float duration = 2f;
         float elapsed = 0f;
 
         while (elapsed < duration)
@@ -97,12 +108,11 @@ public class Play : MonoBehaviour
         
 
     }
-    IEnumerator StartBallReturn(Vector3 targetPosition)
+    IEnumerator StartBallReturn(Vector3 targetPosition, float duration)
     {
         
         Vector3 start = targetPosition;
         Vector3 end = BallCatchArea.transform.position;
-        float duration = 2f;
         float elapsed = 0f;
 
         while (elapsed < duration)
@@ -125,7 +135,7 @@ public class Play : MonoBehaviour
         tapped = false;
         while (!tapped)
         {
-            if (tapTimeCounter >= 2f)
+            if (tapTimeCounter >= duration)
             {
                 Debug.Log("Time Out");
                 yield break;

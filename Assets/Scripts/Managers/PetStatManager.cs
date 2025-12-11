@@ -67,16 +67,20 @@ public class PetStatManager : MonoBehaviour
     }
     public void PlayWithPet()
     {
-       
        isPaused = true;
-       gameObject.GetComponent<Play>().StartGame();
-       GameObject.FindGameObjectWithTag("ActivePet").GetComponent<PetBehaviour>().StartPlaying();
+       GameManager.instance.ShowGameStartUI();
+       
     }
     
     public void FeedPet()
     {
         GameManager.instance.GetComponentInChildren<FoodMenuBehaviour>().OpenMenu();
         isPaused = true;
+    }
+    public void resumeFromGame()
+    {
+        isPaused = false;
+        gameObject.GetComponent<PetBehaviour>().petUI.GetComponent<Canvas>().enabled = true;
     }
 }
 

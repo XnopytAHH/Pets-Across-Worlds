@@ -98,8 +98,9 @@ public class ImageTracker : MonoBehaviour
                                 }
                                 else
                                 {
-                                    GameManager.instance.currentPlayerPets[trackedImage.referenceImage.name].fullRestedTime = "";
                                     GameManager.instance.UpdatePetStatsAfterRest(trackedImage.referenceImage.name);
+                                    GameManager.instance.currentPlayerPets[trackedImage.referenceImage.name].fullRestedTime = "";
+                                    
                                 }
                             }
                             GameManager.instance.activePet = trackedImage.referenceImage.name;

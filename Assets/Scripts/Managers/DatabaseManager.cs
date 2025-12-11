@@ -38,14 +38,7 @@ public class DatabaseManager : MonoBehaviour
             GameManager.instance.currentPlayerName = snapshot.Child("username").Value.ToString();
             foreach (var petSnapshot in snapshot.Child("pets").Children)
             {
-                new Pet(
-                    petSnapshot.Child("petName").Value.ToString(),
-                    float.Parse(petSnapshot.Child("foodLevel").Value.ToString()),
-                    float.Parse(petSnapshot.Child("moodLevel").Value.ToString()),
-                    float.Parse(petSnapshot.Child("energyLevel").Value.ToString()),
-                    petSnapshot.Child("fullRestedTime").Value.ToString(),
-                    int.Parse(petSnapshot.Child("highscore").Value.ToString())
-                );
+                
                 GameManager.instance.currentPlayerPets.Add(
                     petSnapshot.Key,
                     new Pet(

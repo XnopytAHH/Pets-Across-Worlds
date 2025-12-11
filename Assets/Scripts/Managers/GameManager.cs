@@ -7,6 +7,7 @@ using Firebase.Database;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Collections.Generic;
+using Unity.XR.CoreUtils;
 
 
 public class GameManager : MonoBehaviour
@@ -29,6 +30,13 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private string[] dislikedFoods;
     public Dictionary<string, string[]> petFoodPreferences;
+    [SerializeField]
+    GameObject gameStartUI;
+    [SerializeField]
+    GameObject gameOverUI;
+    [SerializeField]
+    GameObject NewHighscoreText;
+
     void Awake()
     {
         db = FirebaseDatabase.DefaultInstance.RootReference;
@@ -47,6 +55,7 @@ public class GameManager : MonoBehaviour
         {
             petFoodPreferences[petTypes[i]] = new string[] { favoriteFoods[i], dislikedFoods[i] };
         }
+        
     }
     public void CreateNewPet(string petType)
     {
@@ -103,8 +112,61 @@ public class GameManager : MonoBehaviour
     }
     public void UpdatePetStatsAfterRest(string petName)
     {
-        
+        GameManager.instance.currentPlayerPets[petName].moodLevel = Mathf.CeilToInt(GameManager.instance.currentPlayerPets[petName].moodLevel/2);
+        GameManager.instance.currentPlayerPets[petName].foodLevel = Mathf.CeilToInt(GameManager.instance.currentPlayerPets[petName].foodLevel/2);
+        if ((System.DateTime.Now - System.DateTime.Parse(GameManager.instance.currentPlayerPets[petName].fullRestedTime)).TotalDays > 0)
+        {
+            GameManager.instance.currentPlayerPets[petName].moodLevel -=1f;
+            GameManager.instance.currentPlayerPets[petName].foodLevel -=1f;
+            return;
+        }
         GameManager.instance.currentPlayerPets[petName].energyLevel = 10f;
     }
-    
+    public void ShowGameStartUI()
+    {
+        gameStartUI.SetActive(true);
+        gameStartUI.GetNamedChild("ScoreIndicator").GetComponent<TextMeshProUGUI>().text = GameManager.instance.currentPlayerPets[GameManager.instance.activePet].highscore.ToString();
+    }
+    public void ShowGameOverUI(int score)
+    {
+        gameOverUI.SetActive(true);
+        int moodIncrease = Mathf.CeilToInt(score / 10);
+        if (moodIncrease > 5)
+        {
+            moodIncrease = 5;
+        }
+        if (score > GameManager.instance.currentPlayerPets[GameManager.instance.activePet].highscore)
+        {
+            GameManager.instance.currentPlayerPets[GameManager.instance.activePet].highscore = score;
+            NewHighscoreText.SetActive(true);
+            moodIncrease +=3;
+        }
+        
+        else
+        {
+            NewHighscoreText.SetActive(false);
+        }
+        gameOverUI.GetNamedChild("ScoreIndicator").GetComponent<TextMeshProUGUI>().text = score.ToString();
+        
+        gameOverUI.GetNamedChild("Details").GetComponent<TextMeshProUGUI>().text = "Your pet's mood increased by: " + moodIncrease.ToString();
+        GameManager.instance.currentPlayerPets[GameManager.instance.activePet].moodLevel += moodIncrease;
+
+    }
+    public void HideGameOverUI()
+    {
+        gameOverUI.SetActive(false);
+        GameObject activePetObj = GameObject.FindGameObjectWithTag("ActivePet");
+        activePetObj.GetComponent<PetStatManager>().resumeFromGame();
+    }
+    public void HideGameStartUI()
+    {
+        gameStartUI.SetActive(false);
+    }
+    public void startGame()
+    {
+        GameObject activePetObj = GameObject.FindGameObjectWithTag("ActivePet");
+       activePetObj.GetComponent<Play>().StartGame();
+       activePetObj.GetComponent<PetBehaviour>().StartPlaying();
+       HideGameStartUI();
+    }
 }   
