@@ -12,12 +12,14 @@ public class LoginAndRegister : MonoBehaviour
     GameObject loginUI;
     [SerializeField]
     GameObject registerUI;
-
+    [SerializeField]
+    GameObject mainMenuUI;
     private bool isLoggingIn = true;
     public void Awake()
     {
         loginUI.SetActive(true);
         registerUI.SetActive(false);
+        mainMenuUI.SetActive(false);
     }
     public void changeMenu()
     {
@@ -87,7 +89,17 @@ public class LoginAndRegister : MonoBehaviour
             db.Child("players").Child(GameManager.instance.currentPlayerID).Child("Pets");
         }
         yield return DatabaseManager.instance.LoadPlayerData(GameManager.instance.currentPlayerID);
-        SceneManager.LoadScene("MainMenu");
+        mainMenuUI.SetActive(true);
+        loginUI.SetActive(false);
+        registerUI.SetActive(false);
+    }
+    public void StartButton()
+    {
+    SceneManager.LoadScene("MainMenu");
+    }
+    public void QuitButton()
+    {
+        Application.Quit();
     }
 }
         
