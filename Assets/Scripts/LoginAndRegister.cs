@@ -32,7 +32,7 @@ public class LoginAndRegister : MonoBehaviour
             registerUI.SetActive(false);
             mainMenuUI.SetActive(false);
         }
-
+        GameManager.instance.HideTodoList();
             
         
     }

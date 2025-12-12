@@ -19,16 +19,21 @@ public class GameManager : MonoBehaviour
     public string activePet = null;
     [SerializeField]
     Canvas petCreationUI;
+    [SerializeField]
+    GameObject todoListUI;
     DatabaseReference db;
     string petTypeTemp;
     public string sleepTimeTemp;
 
     [SerializeField]
-    private string[] petTypes;
+    public string[] petTypes;
     [SerializeField]
     private string[] favoriteFoods;
     [SerializeField]
     private string[] dislikedFoods;
+    [SerializeField]
+    public string[] sleepTimes;
+    public Dictionary<string, string> petSleepTimes;
     public Dictionary<string, string[]> petFoodPreferences;
     [SerializeField]
     GameObject gameStartUI;
@@ -36,6 +41,7 @@ public class GameManager : MonoBehaviour
     GameObject gameOverUI;
     [SerializeField]
     GameObject NewHighscoreText;
+    public bool forcedSleep = false;
 
     void Awake()
     {
@@ -55,6 +61,12 @@ public class GameManager : MonoBehaviour
         {
             petFoodPreferences[petTypes[i]] = new string[] { favoriteFoods[i], dislikedFoods[i] };
         }
+        petSleepTimes = new Dictionary<string, string>();
+        for (int i = 0; i < petTypes.Length; i++)
+        {
+            petSleepTimes[petTypes[i]] = sleepTimes[i];
+        }
+        
         
     }
     public void CreateNewPet(string petType)
@@ -130,7 +142,7 @@ public class GameManager : MonoBehaviour
     public void ShowGameOverUI(int score)
     {
         gameOverUI.SetActive(true);
-        int moodIncrease = Mathf.CeilToInt(score / 10);
+        int moodIncrease = Mathf.CeilToInt(score / 3);
         if (moodIncrease > 5)
         {
             moodIncrease = 5;
@@ -161,6 +173,7 @@ public class GameManager : MonoBehaviour
     public void HideGameStartUI()
     {
         gameStartUI.SetActive(false);
+        ShowTodoList();
     }
     public void startGame()
     {
@@ -168,5 +181,15 @@ public class GameManager : MonoBehaviour
        activePetObj.GetComponent<Play>().StartGame();
        activePetObj.GetComponent<PetBehaviour>().StartPlaying();
        HideGameStartUI();
+       HideTodoList();
     }
+    public void HideTodoList()
+    {
+        todoListUI.SetActive(false);
+    }
+    public void ShowTodoList()
+    {
+        todoListUI.SetActive(true);
+    }
+    
 }   

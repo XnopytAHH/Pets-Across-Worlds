@@ -186,8 +186,8 @@ MonoBehaviour:
     m_SubscriptOffset: -11.4
     m_SubscriptSize: 0.5
     m_UnderlineOffset: -9.5
-    m_UnderlineThickness: 3.8
-    m_StrikethroughOffset: 15.2
+    m_UnderlineThickness: 20
+    m_StrikethroughOffset: 26.9
     m_StrikethroughThickness: 3.8
     m_TabWidth: 27
   m_Material: {fileID: -6958705679356819219}

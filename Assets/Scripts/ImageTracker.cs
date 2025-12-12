@@ -105,6 +105,7 @@ public class ImageTracker : MonoBehaviour
                             }
                             GameManager.instance.activePet = trackedImage.referenceImage.name;
                             spawnedPrefabs[trackedImage.referenceImage.name].GetNamedChild("Capsule").tag = "ActivePet";
+                            GameManager.instance.ShowTodoList();
                             petActive = true;
                             Debug.Log("PET ACTIVE SET TO TRUE");
                         }

@@ -26,6 +26,12 @@ public class PetStatManager : MonoBehaviour
         foodSlider.value = GameManager.instance.currentPlayerPets[GameManager.instance.activePet].foodLevel;
         moodSlider.value = GameManager.instance.currentPlayerPets[GameManager.instance.activePet].moodLevel;
         energySlider.value = GameManager.instance.currentPlayerPets[GameManager.instance.activePet].energyLevel;
+        if (GameManager.instance.currentPlayerPets[GameManager.instance.activePet].energyLevel <= 0)
+        {
+            GameManager.instance.forcedSleep = true;
+            // Trigger sleep state
+            StartCoroutine(SleepCoroutine());
+        }
     }
     void Start()
     {
@@ -54,10 +60,10 @@ public class PetStatManager : MonoBehaviour
     }
     IEnumerator SleepCoroutine()
     {
-        string exampleSleepTime = "05-45-00";
-        string petWakeupTime = System.DateTime.Now.AddHours(int.Parse(exampleSleepTime.Substring(0, 2)))
-            .AddMinutes(int.Parse(exampleSleepTime.Substring(3, 2)))
-            .AddSeconds(int.Parse(exampleSleepTime.Substring(6, 2))).ToString("yyyy-MM-dd HH:mm:ss");
+        string SleepTime =  GameManager.instance.petSleepTimes[GameManager.instance.activePet];
+        string petWakeupTime = System.DateTime.Now.AddHours(int.Parse(SleepTime.Substring(0, 2)))
+            .AddMinutes(int.Parse(SleepTime.Substring(3, 2)))
+            .AddSeconds(int.Parse(SleepTime.Substring(6, 2))).ToString("yyyy-MM-dd HH:mm:ss");
         GameManager.instance.currentPlayerPets[GameManager.instance.activePet].fullRestedTime = petWakeupTime;
         Debug.Log("Pet will wake up at: " + petWakeupTime);
         GameManager.instance.sleepTimeTemp = petWakeupTime;
@@ -69,6 +75,7 @@ public class PetStatManager : MonoBehaviour
     {
        isPaused = true;
        GameManager.instance.ShowGameStartUI();
+        GameManager.instance.HideTodoList();
        
     }
     
@@ -76,11 +83,13 @@ public class PetStatManager : MonoBehaviour
     {
         GameManager.instance.GetComponentInChildren<FoodMenuBehaviour>().OpenMenu();
         isPaused = true;
+        GameManager.instance.HideTodoList();
     }
     public void resumeFromGame()
     {
         isPaused = false;
         gameObject.GetComponent<PetBehaviour>().petUI.GetComponent<Canvas>().enabled = true;
+        GameManager.instance.ShowTodoList();
     }
 }
 

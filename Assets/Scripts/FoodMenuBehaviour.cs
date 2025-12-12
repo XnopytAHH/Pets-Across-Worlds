@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 public class FoodMenuBehaviour : MonoBehaviour
 {   
 
@@ -33,9 +34,15 @@ public class FoodMenuBehaviour : MonoBehaviour
     public void CloseMenu()
     {
         gameObject.GetComponent<Canvas>().enabled = false;
+        if (SceneManager.GetActiveScene().name == "MainMenu")
+        {
+            GameManager.instance.ShowTodoList();
+        }
+        
     }
     public void OpenMenu()
     {
         gameObject.GetComponent<Canvas>().enabled = true;
+        GameManager.instance.HideTodoList();
     }
 }
