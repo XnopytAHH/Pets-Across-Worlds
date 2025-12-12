@@ -5,6 +5,8 @@ using Firebase.Extensions;
 using Firebase.Database;
 using UnityEngine.SceneManagement;
 using System.Collections;
+using Unity.XR.CoreUtils;
+using System.Collections.Generic;
 
 public class LoginAndRegister : MonoBehaviour
 {
@@ -17,9 +19,22 @@ public class LoginAndRegister : MonoBehaviour
     private bool isLoggingIn = true;
     public void Awake()
     {
-        loginUI.SetActive(true);
-        registerUI.SetActive(false);
-        mainMenuUI.SetActive(false);
+        if (GameManager.instance.currentPlayerID != null && GameManager.instance.currentPlayerID != "")
+        {
+            loginUI.SetActive(false);
+            registerUI.SetActive(false);
+            mainMenuUI.SetActive(true);
+            mainMenuUI.GetNamedChild("Username").GetComponent<TextMeshProUGUI>().text = GameManager.instance.currentPlayerName;
+        }
+        else
+        {
+            loginUI.SetActive(true);
+            registerUI.SetActive(false);
+            mainMenuUI.SetActive(false);
+        }
+
+            
+        
     }
     public void changeMenu()
     {
@@ -50,6 +65,7 @@ public class LoginAndRegister : MonoBehaviour
                     return;
                 }
                 GameManager.instance.currentPlayerID = task.Result.User.UserId;
+                
             });
             }
             else
@@ -87,11 +103,16 @@ public class LoginAndRegister : MonoBehaviour
             DatabaseReference db = FirebaseDatabase.DefaultInstance.RootReference;
             db.Child("players").Child(GameManager.instance.currentPlayerID).Child("username").SetValueAsync(GameObject.Find("UsernameInput").GetComponent<TMP_InputField>().text);
             db.Child("players").Child(GameManager.instance.currentPlayerID).Child("Pets");
+            
         }
+        
         yield return DatabaseManager.instance.LoadPlayerData(GameManager.instance.currentPlayerID);
         mainMenuUI.SetActive(true);
         loginUI.SetActive(false);
         registerUI.SetActive(false);
+        yield return new WaitUntil(() => GameManager.instance.currentPlayerName != null && GameManager.instance.currentPlayerName != "");
+        Debug.Log("Logged in as: " + GameManager.instance.currentPlayerName);
+        mainMenuUI.GetNamedChild("Username").GetComponent<TextMeshProUGUI>().text = GameManager.instance.currentPlayerName;
     }
     public void StartButton()
     {
@@ -100,6 +121,16 @@ public class LoginAndRegister : MonoBehaviour
     public void QuitButton()
     {
         Application.Quit();
+    }
+    public void LogOut()
+    {
+        FirebaseAuth.DefaultInstance.SignOut();
+        GameManager.instance.currentPlayerID = null;
+        GameManager.instance.currentPlayerPets = new Dictionary<string, Pet>();
+        GameManager.instance.currentPlayerName = null;
+        loginUI.SetActive(true);
+        registerUI.SetActive(false);
+        mainMenuUI.SetActive(false);
     }
 }
         
