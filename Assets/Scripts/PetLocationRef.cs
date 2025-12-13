@@ -65,6 +65,7 @@ public class PetLocationRef : MonoBehaviour
 
     IEnumerator Idle()
     {
+        npcAgent.isStopped = true;
         Debug.Log("Started Idle");
         StartCoroutine(IdleTimer());
 
@@ -95,7 +96,7 @@ public class PetLocationRef : MonoBehaviour
     }
     IEnumerator IdleTimer()
     {
-        yield return new WaitForSeconds(5);
+        yield return new WaitForSeconds(3f);
         if (currentState == "Idle")
         {
 
@@ -126,5 +127,17 @@ public class PetLocationRef : MonoBehaviour
     public Quaternion GetRotation()
     {
         return transform.rotation;
+    }
+    public IEnumerator FaceFood(Quaternion foodRotation)
+    {
+        StartCoroutine(SwitchStates("Idle"));
+        npcAgent.destination = transform.position; // Stop moving
+        while (Quaternion.Angle(transform.rotation, foodRotation) > 1f)
+        {
+            transform.rotation = Quaternion.Slerp(transform.rotation, foodRotation, Time.deltaTime * 2f);
+            yield return null;
+        }
+        yield return null;
+        
     }
 }

@@ -19,6 +19,8 @@ public class PetBehaviour : MonoBehaviour
     Texture2D moodStatUpTexture;
     [SerializeField]
     Texture2D foodStatUpTexture;
+    [SerializeField]
+    GameObject exclaimPrefab;
     
 
     void Start()
@@ -74,5 +76,12 @@ public class PetBehaviour : MonoBehaviour
         statUpVFX.Stop();
         yield return null;
     }
-    
+    public void LookAtFood(GameObject target)
+    {
+        Vector3 directionToFood = target.transform.position - transform.position;
+        directionToFood.y = 0; // Keep only the horizontal direction
+        Quaternion foodRotation = Quaternion.LookRotation(directionToFood);
+        StartCoroutine(GameObject.Find("Location Ref").GetComponent<PetLocationRef>().FaceFood(foodRotation));
+        Instantiate(exclaimPrefab, transform.position + new Vector3(0, 0.2f, 0), Quaternion.identity);
+    }
 }

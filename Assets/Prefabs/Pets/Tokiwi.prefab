@@ -1114,6 +1114,7 @@ MonoBehaviour:
   statUpVFX: {fileID: 8379999154991581763}
   moodStatUpTexture: {fileID: 2800000, guid: 709f0e14fa1207447bc88c7ab4aab121, type: 3}
   foodStatUpTexture: {fileID: 2800000, guid: fa4b0a245ddbabc488e3b4ad484f503d, type: 3}
+  exclaimPrefab: {fileID: 7616981201794109671, guid: b175f4abc2424984a87ca8cb4a6a34b6, type: 3}
 --- !u!114 &2411708647439443226
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -30,6 +30,8 @@ public class FoodMenuBehaviour : MonoBehaviour
     {
         SoundManager.instance.buttonClick();
         GameObject foodObject = Instantiate(foodPrefabs[foodName], GameObject.Find(GameManager.instance.activePet).transform.position + new Vector3(0, 0.5f, 0), Quaternion.identity );
+        
+        GameObject.FindGameObjectWithTag("ActivePet").GetComponent<PetBehaviour>().LookAtFood(foodObject);
         CloseMenu();
     }
     public void CloseMenu()
