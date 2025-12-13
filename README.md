@@ -18,8 +18,8 @@ Select one of the 5 foods in the pop up menu. Each pet has a favorite food, show
 | Pet Type    | Favorite food | Least Favorite food |
 | -------- | ------- |  ------- |
 | Neoncat | Fish | Apple |
-| Neoncat | Fish | Apple |
-| Neoncat | Fish | Apple |
+| Updog | Meat | Bread |
+| Tokiwi | Carrot | Meat |
 
 The pet is given food points based on how much it likes the food, with: <br>
 - Favorite Food (3 points)
@@ -40,8 +40,8 @@ The pet will go to sleep for a duration of time based on the sleep times shown b
 | Pet Type    | Sleep Duration (hh-mm-ss)|
 | -------- | ------- | 
 | Neoncat | 04-20-00 |
-| Neoncat |  04-20-00 |
-| Neoncat |  04-20-00 |
+| Updog |  05-30-00 |
+| Tokiwi |  02-45-30 |
 
  Sleeping brings the player to an end screen indication how long till the pet wakes up, as well as a "Thanks for playing" and prompt to return to the main menu. 
 >**This acts as the "End" of the experience**
@@ -64,8 +64,8 @@ Fish Icon - Custom asset by Jayson Lim <br>
 Meat Icon - Custom asset by Jayson Lim <br>
 
 Neoncat 3D model - Custom asset by Andre Lim <br>
-Pet 2 3D model - Custom asset by Andre Lim <br>
-Pet 3 3D model - Custom asset by Andre Lim <br>
+Updog 3D model - Custom asset by Andre Lim <br>
+Tokiwi 3D model - Custom asset by Andre Lim <br>
 Apple 3D model - Custom asset by Andre Lim <br>
 Bread 3D model - Custom asset by Andre Lim <br>
 Carrot 3D model - Custom asset by Andre Lim <br>
