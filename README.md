@@ -1,4 +1,5 @@
 # Pets Across Worlds
+<img src="Assets/Sprites/PAWLogo.png"></img>
 ## Overview
 Pets Across Worlds is a virtual pets game where you nurture an Augmented Reality pet. Scan a Pets Across Worlds playing card to spawn them in any environment where you can then feed your pet or play ball with them! Collect all the different pets by collecting each of the Pets Across Worlds playing cards!
 ## Recommended System requirements
@@ -10,7 +11,8 @@ The overarching goal is to keep your pet alive. Follow the steps on the ingame t
 Scan a Pets Across Worlds playing card to spawn the associated pet. <br>
 If you do not already have a pet of this type associated to your account, it will prompt you to enter a name for the new pet.
 
-### Feed your pet
+### <img src="Assets/Sprites/FoodIcon.png"></img> Feed your pet 
+
 Select the "Feed" above the pet <br>
 Select one of the 5 foods in the pop up menu. Each pet has a favorite food, shown below:<br>
 | Pet Type    | Favorite food | Least Favorite food |
@@ -24,7 +26,7 @@ The pet is given food points based on how much it likes the food, with: <br>
 - Neutral Food (1 point)
 - Least Favorite food (0.5 points)
 
-### Play with your pet
+### <img src="Assets/Sprites/MoodIcon.png"></img> Play with your pet
 Select the "Play" above the pet <br>
 When the game begins, press the ball when the red indicator appears on it. If you take too long, the game will end <br>
 <br>
@@ -32,7 +34,7 @@ The pet is given mood points based on the score achieved, as shown:
 - 1 mood point per 3 game score
 - +3 mood points if the player breaks their highscore
 
-### Let your pet sleep
+### <img src="Assets/Sprites/EnergyIcon.png"></img> Let your pet sleep
 Select the "Sleep" above the pet <br>
 The pet will go to sleep for a duration of time based on the sleep times shown below: <br>
 | Pet Type    | Sleep Duration (hh-mm-ss)|
