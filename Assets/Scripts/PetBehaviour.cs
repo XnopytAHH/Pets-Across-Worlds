@@ -6,7 +6,8 @@ using Unity.XR.CoreUtils;
 using TMPro;
 public class PetBehaviour : MonoBehaviour
 {
-    
+    [SerializeField]
+    GameObject petModel;    
     public bool petAwake = true;
     [SerializeField]
     public GameObject petUI;
@@ -28,18 +29,19 @@ public class PetBehaviour : MonoBehaviour
     {
         if(!petAwake)
         {
-            gameObject.GetComponent<MeshRenderer>().enabled = false;
+            petModel.SetActive(false);
             petUI.SetActive(false);
             restUI.SetActive(true);
         }
         else
         {
-            gameObject.GetComponent<MeshRenderer>().enabled = true;
+            petModel.SetActive(true);
             petUI.SetActive(true);
             restUI.SetActive(false);
 
         }  
         Vector3 offsetPosition = GameObject.Find("Location Ref").GetComponent<PetLocationRef>().GetPetPosition(GameObject.Find("Movement Plane").transform.localScale.x);
+        gameObject.transform.rotation = GameObject.Find("Location Ref").GetComponent<PetLocationRef>().GetRotation();
         offsetPosition = GameObject.Find("Movement Plane").transform.position + new Vector3(offsetPosition.x, 0, offsetPosition.z);
         offsetPosition.y = gameObject.transform.position.y;
         gameObject.transform.position = offsetPosition;

@@ -726,8 +726,8 @@ MonoBehaviour:
   placeablePrefabs:
   - {fileID: 5196083942147632053, guid: b08a50f3f741a27468511fb876001a6a, type: 3}
   - {fileID: 5196083942147632053, guid: 57fb52cdbda0c994a8a4a744d42f1f41, type: 3}
-  - {fileID: 5196083942147632053, guid: 03b5adbb56b49764f934790100014cc9, type: 3}
-  - {fileID: 5196083942147632053, guid: 95e46104f4c533348a236ff41295785d, type: 3}
+  - {fileID: 5196083942147632053, guid: a1dff7840bb2dcd4aa4f64ab64a4bca7, type: 3}
+  - {fileID: 5196083942147632053, guid: 017a1ed299f925f49b50443baf264521, type: 3}
   petExists: 0
   petActive: 0
   currentGameState: WaitingForPet

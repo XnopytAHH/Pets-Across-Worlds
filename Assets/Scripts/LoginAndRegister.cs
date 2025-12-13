@@ -16,6 +16,10 @@ public class LoginAndRegister : MonoBehaviour
     GameObject registerUI;
     [SerializeField]
     GameObject mainMenuUI;
+    [SerializeField]
+    TextMeshProUGUI loginErrorText;
+    [SerializeField]
+    TextMeshProUGUI registerErrorText;
     private bool isLoggingIn = true;
     public void Start()
     {
@@ -48,11 +52,11 @@ public class LoginAndRegister : MonoBehaviour
         SoundManager.instance.buttonClick();
         TMP_InputField emailInputField = GameObject.FindGameObjectWithTag("EmailField").GetComponent<TMP_InputField>();
         TMP_InputField passwordInputField = GameObject.FindGameObjectWithTag("PasswordField").GetComponent<TMP_InputField>();
-        TextMeshProUGUI errorText = GameObject.Find("ErrorText").GetComponent<TextMeshProUGUI>();
-        if (emailInputField.text != "" && passwordInputField.text != "")
-        {
+        
+        
             if (isLoggingIn)
             {
+                TextMeshProUGUI errorText =  loginErrorText;
                 FirebaseAuth.DefaultInstance.SignInWithEmailAndPasswordAsync(emailInputField.text, passwordInputField.text)
             .ContinueWithOnMainThread(task =>
             {
@@ -63,7 +67,32 @@ public class LoginAndRegister : MonoBehaviour
                 }
                 if (task.IsFaulted)
                 {
-                    errorText.text = "The Email or Password is incorrect.";
+                    var exception = task.Exception.GetBaseException() as Firebase.FirebaseException;
+                    var errorCode = (Firebase.Auth.AuthError)exception.ErrorCode;
+                    switch (errorCode)
+                    {
+                        case Firebase.Auth.AuthError.MissingEmail:
+                            errorText.text = ("Please enter your email address.");
+                            break;
+                        case Firebase.Auth.AuthError.MissingPassword:
+                            errorText.text = ("Please enter your password.");
+                            break;
+                        case Firebase.Auth.AuthError.InvalidEmail:
+                            errorText.text = ("Please enter a valid email address.");
+                            break;
+                        case Firebase.Auth.AuthError.WrongPassword:
+                            errorText.text = ("The password is incorrect. Please try again.");
+                            break;
+                        case Firebase.Auth.AuthError.UserNotFound:
+                            errorText.text = ("There is no account with this email. Please register first.");
+                            break;
+                        case Firebase.Auth.AuthError.WebInternalError:
+                            errorText.text = ("This account has been disabled. Please contact support.");
+                            break;
+                        default:
+                            Debug.LogError("Login encountered an error: " + exception.Message);
+                            break;
+                    }
                     return;
                 }
                 GameManager.instance.currentPlayerID = task.Result.User.UserId;
@@ -72,24 +101,51 @@ public class LoginAndRegister : MonoBehaviour
             }
             else
             {
+                TextMeshProUGUI errorText =  registerErrorText;
+                if (GameObject.Find("UsernameInput").GetComponent<TMP_InputField>().text == "")
+                {
+                    errorText.text = ("Please enter a username.");
+                    return;
+                }
                 FirebaseAuth.DefaultInstance.CreateUserWithEmailAndPasswordAsync(emailInputField.text, passwordInputField.text)
                 .ContinueWithOnMainThread(task =>
                 {
-                    if (task.IsCanceled)
+                    
+                    if (task.IsFaulted)
                     {
-                        Debug.LogError("Register was canceled.");
+                        var exception = task.Exception.GetBaseException() as Firebase.FirebaseException;
+                        var errorCode = (Firebase.Auth.AuthError)exception.ErrorCode;
+                        switch (errorCode)
+                        {
+                            case Firebase.Auth.AuthError.MissingEmail:
+                                errorText.text = ("Please enter your email address.");
+                                break;
+                            case Firebase.Auth.AuthError.MissingPassword:
+                                errorText.text = ("Please enter your password.");
+                                break;
+                            case Firebase.Auth.AuthError.InvalidEmail:
+                                errorText.text = ("Please enter a valid email address.");
+                                break;
+                            case Firebase.Auth.AuthError.WeakPassword:
+                                errorText.text = ("The password is too weak. Please enter a stronger password.");
+                                break;
+                            case Firebase.Auth.AuthError.EmailAlreadyInUse:
+                                errorText.text = ("An account with this email already exists. Please log in.");
+                                break;
+                            default:
+                                Debug.LogError("Register encountered an error: " + exception.Message);
+                                break;
+                        }
                         return;
                     }
+                    
                     GameManager.instance.currentPlayerID = task.Result.User.UserId;
                 });
             }
             StartCoroutine(waitForLogin());
 
-        }
-        else
-        {
-            errorText.text = "Please enter both email and password.";
-        }
+        
+        
 
 
     }

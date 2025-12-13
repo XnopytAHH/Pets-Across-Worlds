@@ -123,4 +123,8 @@ public class PetLocationRef : MonoBehaviour
         return new Vector3(scaleOffset.x, 0, scaleOffset.y);
 
     }
+    public Quaternion GetRotation()
+    {
+        return transform.rotation;
+    }
 }
