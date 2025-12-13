@@ -8,6 +8,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Collections.Generic;
 using Unity.XR.CoreUtils;
+using UnityEngine.VFX;
 
 
 public class GameManager : MonoBehaviour
@@ -42,6 +43,8 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     GameObject NewHighscoreText;
     public bool forcedSleep = false;
+    
+
 
     void Awake()
     {
@@ -95,6 +98,7 @@ public class GameManager : MonoBehaviour
             GameObject.Find("XR Origin (AR Rig)").GetComponent<ImageTracker>().petActive = true;
             
         }
+        ShowTodoList();
 
     }
     public bool CheckPetExists(string petName)
@@ -171,6 +175,7 @@ public class GameManager : MonoBehaviour
         gameOverUI.SetActive(false);
         GameObject activePetObj = GameObject.FindGameObjectWithTag("ActivePet");
         activePetObj.GetComponent<PetStatManager>().resumeFromGame();
+        StartCoroutine(activePetObj.GetComponent<PetBehaviour>().PlayStatUpVFX("mood"));
         SoundManager.instance.buttonClick();
     }
     public void HideGameStartUI()
@@ -195,5 +200,5 @@ public class GameManager : MonoBehaviour
     {
         todoListUI.SetActive(true);
     }
-
+    
 }

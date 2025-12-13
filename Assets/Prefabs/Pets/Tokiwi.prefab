@@ -1059,7 +1059,6 @@ Transform:
   m_LocalScale: {x: 0.07991675, y: 0.07991675, z: 0.07991675}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 66228654481253290}
   - {fileID: 6567942392211958788}
   - {fileID: 8218146339199464471}
   m_Father: {fileID: 7178595210429620674}
@@ -1158,9 +1157,6 @@ MonoBehaviour:
   petAwake: 1
   petUI: {fileID: 7412389134158526920}
   restUI: {fileID: 5614632182658605181}
-  statUpVFX: {fileID: 8379999154991581763}
-  moodStatUpTexture: {fileID: 2800000, guid: 709f0e14fa1207447bc88c7ab4aab121, type: 3}
-  foodStatUpTexture: {fileID: 2800000, guid: fa4b0a245ddbabc488e3b4ad484f503d, type: 3}
 --- !u!114 &2411708647439443226
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2075,7 +2071,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7178595210429620674}
   m_Layer: 0
-  m_Name: Neoncat
+  m_Name: Tokiwi
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3739,70 +3735,3 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
---- !u!1001 &2051281115472798190
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 1763696358454697152}
-    m_Modifications:
-    - target: {fileID: 2061760027151532612, guid: f0900d6f2750fdc4591190c816a60b28, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0.06
-      objectReference: {fileID: 0}
-    - target: {fileID: 2061760027151532612, guid: f0900d6f2750fdc4591190c816a60b28, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 1.02
-      objectReference: {fileID: 0}
-    - target: {fileID: 2061760027151532612, guid: f0900d6f2750fdc4591190c816a60b28, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0.05
-      objectReference: {fileID: 0}
-    - target: {fileID: 2061760027151532612, guid: f0900d6f2750fdc4591190c816a60b28, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2061760027151532612, guid: f0900d6f2750fdc4591190c816a60b28, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2061760027151532612, guid: f0900d6f2750fdc4591190c816a60b28, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2061760027151532612, guid: f0900d6f2750fdc4591190c816a60b28, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2061760027151532612, guid: f0900d6f2750fdc4591190c816a60b28, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2061760027151532612, guid: f0900d6f2750fdc4591190c816a60b28, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2061760027151532612, guid: f0900d6f2750fdc4591190c816a60b28, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7013506746764324654, guid: f0900d6f2750fdc4591190c816a60b28, type: 3}
-      propertyPath: m_Name
-      value: StatUp
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: f0900d6f2750fdc4591190c816a60b28, type: 3}
---- !u!4 &66228654481253290 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 2061760027151532612, guid: f0900d6f2750fdc4591190c816a60b28, type: 3}
-  m_PrefabInstance: {fileID: 2051281115472798190}
-  m_PrefabAsset: {fileID: 0}
---- !u!2083052967 &8379999154991581763 stripped
-VisualEffect:
-  m_CorrespondingSourceObject: {fileID: 7510915230254361517, guid: f0900d6f2750fdc4591190c816a60b28, type: 3}
-  m_PrefabInstance: {fileID: 2051281115472798190}
-  m_PrefabAsset: {fileID: 0}

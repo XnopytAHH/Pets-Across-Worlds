@@ -19,6 +19,8 @@ public class ImageTracker : MonoBehaviour
     public bool petExists = false;
     public bool petActive = false;
     public string currentGameState = "WaitingForPet";
+    [SerializeField]
+    public GameObject scanText;
     private void Start()
     {
         if (trackedImageManager != null)
@@ -79,6 +81,7 @@ public class ImageTracker : MonoBehaviour
                         Debug.Log("exists value: " + petExists);
                         if (petExists == false)
                         {
+                            scanText.SetActive(false);
                             GameManager.instance.CreateNewPet(trackedImage.referenceImage.name);
                             
                         }
@@ -103,9 +106,11 @@ public class ImageTracker : MonoBehaviour
                                     
                                 }
                             }
+
                             GameManager.instance.activePet = trackedImage.referenceImage.name;
                             spawnedPrefabs[trackedImage.referenceImage.name].GetNamedChild("Capsule").tag = "ActivePet";
                             GameManager.instance.ShowTodoList();
+                            scanText.SetActive(false);
                             petActive = true;
                             Debug.Log("PET ACTIVE SET TO TRUE");
                         }
@@ -120,6 +125,8 @@ public class ImageTracker : MonoBehaviour
                 {
                     if (trackedImage.referenceImage.name == GameManager.instance.activePet)
                     {
+                         
+                        scanText.SetActive(false);
                         spawnedPrefabs[trackedImage.referenceImage.name].GetNamedChild("Capsule").tag = "ActivePet";
                         spawnedPrefabs[trackedImage.referenceImage.name].transform.position = trackedImage.transform.position;
                         spawnedPrefabs[trackedImage.referenceImage.name].transform.rotation = trackedImage.transform.rotation;

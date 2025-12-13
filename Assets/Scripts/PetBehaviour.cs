@@ -1,5 +1,5 @@
 using UnityEngine;
-
+using UnityEngine.VFX;
 using System.Collections;
 using UnityEngine.AI;
 using Unity.XR.CoreUtils;
@@ -12,10 +12,17 @@ public class PetBehaviour : MonoBehaviour
     public GameObject petUI;
     [SerializeField]
     private GameObject restUI;
+    [SerializeField]
+    VisualEffect statUpVFX;
+    [SerializeField]
+    Texture2D moodStatUpTexture;
+    [SerializeField]
+    Texture2D foodStatUpTexture;
+    
 
     void Start()
     {
-        
+        statUpVFX.Stop();
     }
     void Update()
     {
@@ -49,6 +56,21 @@ public class PetBehaviour : MonoBehaviour
         restUI.GetComponentInChildren<TextMeshProUGUI>().text = GameManager.instance.currentPlayerPets[gameObject.transform.parent.name].petName + " is asleep! They will wake up in " + timeTillWake.Substring(0, 8);
         
     }
-
+    public IEnumerator PlayStatUpVFX(string statName)
+    {
+        if (statName == "mood")
+        {
+            statUpVFX.SetTexture("Stat", moodStatUpTexture);
+        }
+        else if (statName == "food")
+        {
+            statUpVFX.SetTexture("Stat", foodStatUpTexture);
+        }
+        
+        statUpVFX.Play();
+        yield return new WaitForSeconds(0.5f);
+        statUpVFX.Stop();
+        yield return null;
+    }
     
 }

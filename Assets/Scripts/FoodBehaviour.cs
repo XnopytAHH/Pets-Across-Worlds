@@ -37,6 +37,7 @@ public class FoodBehaviour : MonoBehaviour
                 GameManager.instance.currentPlayerPets[GameManager.instance.activePet].foodLevel += foodAmount;
                 
                 SoundManager.instance.petEating();
+                StartCoroutine(GameObject.FindGameObjectWithTag("ActivePet").GetComponent<PetBehaviour>().PlayStatUpVFX("food"));
                 Destroy(gameObject);
             }
         }

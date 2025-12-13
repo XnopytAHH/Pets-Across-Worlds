@@ -6475,7 +6475,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 261137444957686654, guid: e6d0b86692cd3fe43a6d54f008fe7415, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -1872.5001
+      value: -1872.5228
       objectReference: {fileID: 0}
     - target: {fileID: 261137444957686654, guid: e6d0b86692cd3fe43a6d54f008fe7415, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -6530,8 +6530,28 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1043436203}
     - target: {fileID: 4930921144925896437, guid: e6d0b86692cd3fe43a6d54f008fe7415, type: 3}
+      propertyPath: petTypes.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 4930921144925896437, guid: e6d0b86692cd3fe43a6d54f008fe7415, type: 3}
       propertyPath: sleepTimes.Array.size
-      value: 2
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 4930921144925896437, guid: e6d0b86692cd3fe43a6d54f008fe7415, type: 3}
+      propertyPath: 'petTypes.Array.data[2]'
+      value: Updog
+      objectReference: {fileID: 0}
+    - target: {fileID: 4930921144925896437, guid: e6d0b86692cd3fe43a6d54f008fe7415, type: 3}
+      propertyPath: 'petTypes.Array.data[3]'
+      value: Tokiwi
+      objectReference: {fileID: 0}
+    - target: {fileID: 4930921144925896437, guid: e6d0b86692cd3fe43a6d54f008fe7415, type: 3}
+      propertyPath: dislikedFoods.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 4930921144925896437, guid: e6d0b86692cd3fe43a6d54f008fe7415, type: 3}
+      propertyPath: favoriteFoods.Array.size
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 4930921144925896437, guid: e6d0b86692cd3fe43a6d54f008fe7415, type: 3}
       propertyPath: 'sleepTimes.Array.data[0]'
@@ -6540,6 +6560,30 @@ PrefabInstance:
     - target: {fileID: 4930921144925896437, guid: e6d0b86692cd3fe43a6d54f008fe7415, type: 3}
       propertyPath: 'sleepTimes.Array.data[1]'
       value: 04-20-00
+      objectReference: {fileID: 0}
+    - target: {fileID: 4930921144925896437, guid: e6d0b86692cd3fe43a6d54f008fe7415, type: 3}
+      propertyPath: 'sleepTimes.Array.data[2]'
+      value: 05-30-00
+      objectReference: {fileID: 0}
+    - target: {fileID: 4930921144925896437, guid: e6d0b86692cd3fe43a6d54f008fe7415, type: 3}
+      propertyPath: 'sleepTimes.Array.data[3]'
+      value: 02-45-30
+      objectReference: {fileID: 0}
+    - target: {fileID: 4930921144925896437, guid: e6d0b86692cd3fe43a6d54f008fe7415, type: 3}
+      propertyPath: 'dislikedFoods.Array.data[2]'
+      value: Bread
+      objectReference: {fileID: 0}
+    - target: {fileID: 4930921144925896437, guid: e6d0b86692cd3fe43a6d54f008fe7415, type: 3}
+      propertyPath: 'dislikedFoods.Array.data[3]'
+      value: Meat
+      objectReference: {fileID: 0}
+    - target: {fileID: 4930921144925896437, guid: e6d0b86692cd3fe43a6d54f008fe7415, type: 3}
+      propertyPath: 'favoriteFoods.Array.data[2]'
+      value: Meat
+      objectReference: {fileID: 0}
+    - target: {fileID: 4930921144925896437, guid: e6d0b86692cd3fe43a6d54f008fe7415, type: 3}
+      propertyPath: 'favoriteFoods.Array.data[3]'
+      value: Carrot
       objectReference: {fileID: 0}
     - target: {fileID: 5666788269129863481, guid: e6d0b86692cd3fe43a6d54f008fe7415, type: 3}
       propertyPath: m_AnchoredPosition.x
