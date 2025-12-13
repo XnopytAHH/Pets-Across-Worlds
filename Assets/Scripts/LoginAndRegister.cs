@@ -17,7 +17,7 @@ public class LoginAndRegister : MonoBehaviour
     [SerializeField]
     GameObject mainMenuUI;
     private bool isLoggingIn = true;
-    public void Awake()
+    public void Start()
     {
         if (GameManager.instance.currentPlayerID != null && GameManager.instance.currentPlayerID != "")
         {
