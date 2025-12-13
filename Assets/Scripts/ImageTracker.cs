@@ -120,7 +120,7 @@ public class ImageTracker : MonoBehaviour
                 {
                     if (trackedImage.referenceImage.name == GameManager.instance.activePet)
                     {
-                        
+                        spawnedPrefabs[trackedImage.referenceImage.name].GetNamedChild("Capsule").tag = "ActivePet";
                         spawnedPrefabs[trackedImage.referenceImage.name].transform.position = trackedImage.transform.position;
                         spawnedPrefabs[trackedImage.referenceImage.name].transform.rotation = trackedImage.transform.rotation;
                         spawnedPrefabs[trackedImage.referenceImage.name].SetActive(true);

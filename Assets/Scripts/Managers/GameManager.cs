@@ -66,8 +66,8 @@ public class GameManager : MonoBehaviour
         {
             petSleepTimes[petTypes[i]] = sleepTimes[i];
         }
-        
-        
+
+
     }
     public void CreateNewPet(string petType)
     {
@@ -76,6 +76,7 @@ public class GameManager : MonoBehaviour
     }
     public void CreateNewPetDatabase()
     {
+        SoundManager.instance.buttonClick();
         string petType = petTypeTemp;
         TMP_InputField petNameInput = GameObject.Find("PetNameInput").GetComponent<TMP_InputField>();
         string petName = petNameInput.text;
@@ -92,6 +93,7 @@ public class GameManager : MonoBehaviour
             GameManager.instance.activePet = petType;
             GameObject.Find("XR Origin (AR Rig)").GetComponent<ImageTracker>().petExists = true;
             GameObject.Find("XR Origin (AR Rig)").GetComponent<ImageTracker>().petActive = true;
+            
         }
 
     }
@@ -102,14 +104,14 @@ public class GameManager : MonoBehaviour
             Debug.Log("Pet creation in progress. Skipping existence check.");
             return false;
         }
-        
+
         foreach (var pet in currentPlayerPets)
         {
             if (pet.Key == petName)
             {
-                 GameObject.Find("XR Origin (AR Rig)").GetComponent<ImageTracker>().petExists = true;
+                GameObject.Find("XR Origin (AR Rig)").GetComponent<ImageTracker>().petExists = true;
                 return true;
-                
+
             }
         }
         GameObject.Find("XR Origin (AR Rig)").GetComponent<ImageTracker>().petExists = false;
@@ -124,12 +126,12 @@ public class GameManager : MonoBehaviour
     }
     public void UpdatePetStatsAfterRest(string petName)
     {
-        GameManager.instance.currentPlayerPets[petName].moodLevel = Mathf.CeilToInt(GameManager.instance.currentPlayerPets[petName].moodLevel/2);
-        GameManager.instance.currentPlayerPets[petName].foodLevel = Mathf.CeilToInt(GameManager.instance.currentPlayerPets[petName].foodLevel/2);
+        GameManager.instance.currentPlayerPets[petName].moodLevel = Mathf.CeilToInt(GameManager.instance.currentPlayerPets[petName].moodLevel / 2);
+        GameManager.instance.currentPlayerPets[petName].foodLevel = Mathf.CeilToInt(GameManager.instance.currentPlayerPets[petName].foodLevel / 2);
         if ((System.DateTime.Now - System.DateTime.Parse(GameManager.instance.currentPlayerPets[petName].fullRestedTime)).TotalDays > 0)
         {
-            GameManager.instance.currentPlayerPets[petName].moodLevel -=1f;
-            GameManager.instance.currentPlayerPets[petName].foodLevel -=1f;
+            GameManager.instance.currentPlayerPets[petName].moodLevel -= 1f;
+            GameManager.instance.currentPlayerPets[petName].foodLevel -= 1f;
             return;
         }
         GameManager.instance.currentPlayerPets[petName].energyLevel = 10f;
@@ -151,15 +153,15 @@ public class GameManager : MonoBehaviour
         {
             GameManager.instance.currentPlayerPets[GameManager.instance.activePet].highscore = score;
             NewHighscoreText.SetActive(true);
-            moodIncrease +=3;
+            moodIncrease += 3;
         }
-        
+
         else
         {
             NewHighscoreText.SetActive(false);
         }
         gameOverUI.GetNamedChild("ScoreIndicator").GetComponent<TextMeshProUGUI>().text = score.ToString();
-        
+
         gameOverUI.GetNamedChild("Details").GetComponent<TextMeshProUGUI>().text = "Your pet's mood increased by: " + moodIncrease.ToString();
         GameManager.instance.currentPlayerPets[GameManager.instance.activePet].moodLevel += moodIncrease;
 
@@ -169,6 +171,7 @@ public class GameManager : MonoBehaviour
         gameOverUI.SetActive(false);
         GameObject activePetObj = GameObject.FindGameObjectWithTag("ActivePet");
         activePetObj.GetComponent<PetStatManager>().resumeFromGame();
+        SoundManager.instance.buttonClick();
     }
     public void HideGameStartUI()
     {
@@ -177,11 +180,12 @@ public class GameManager : MonoBehaviour
     }
     public void startGame()
     {
+        SoundManager.instance.buttonClick();
         GameObject activePetObj = GameObject.FindGameObjectWithTag("ActivePet");
-       activePetObj.GetComponent<Play>().StartGame();
-       activePetObj.GetComponent<PetBehaviour>().StartPlaying();
-       HideGameStartUI();
-       HideTodoList();
+        activePetObj.GetComponent<Play>().StartGame();
+        activePetObj.GetComponent<PetBehaviour>().StartPlaying();
+        HideGameStartUI();
+        HideTodoList();
     }
     public void HideTodoList()
     {
@@ -191,5 +195,5 @@ public class GameManager : MonoBehaviour
     {
         todoListUI.SetActive(true);
     }
-    
-}   
+
+}

@@ -35,6 +35,8 @@ public class FoodBehaviour : MonoBehaviour
 
                 
                 GameManager.instance.currentPlayerPets[GameManager.instance.activePet].foodLevel += foodAmount;
+                
+                SoundManager.instance.petEating();
                 Destroy(gameObject);
             }
         }

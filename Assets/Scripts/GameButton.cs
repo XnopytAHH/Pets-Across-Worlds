@@ -18,6 +18,8 @@ public class GameButton : MonoBehaviour
         }
         GameObject.FindGameObjectWithTag("ActivePet").GetComponent<Play>().score += 1;
         Instantiate(scorePrefab, transform.position, Quaternion.identity, canvas.transform);
+        
+        SoundManager.instance.ballBounce();
         Destroy(gameObject);
     }
 }

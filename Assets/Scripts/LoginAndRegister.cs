@@ -38,12 +38,14 @@ public class LoginAndRegister : MonoBehaviour
     }
     public void changeMenu()
     {
+        SoundManager.instance.buttonClick();
         isLoggingIn = !isLoggingIn;
         loginUI.SetActive(isLoggingIn);
         registerUI.SetActive(!isLoggingIn);
     }
     public void LogInOrRegister()
     {
+        SoundManager.instance.buttonClick();
         TMP_InputField emailInputField = GameObject.FindGameObjectWithTag("EmailField").GetComponent<TMP_InputField>();
         TMP_InputField passwordInputField = GameObject.FindGameObjectWithTag("PasswordField").GetComponent<TMP_InputField>();
         TextMeshProUGUI errorText = GameObject.Find("ErrorText").GetComponent<TextMeshProUGUI>();
@@ -116,14 +118,17 @@ public class LoginAndRegister : MonoBehaviour
     }
     public void StartButton()
     {
+        SoundManager.instance.buttonClick();
     SceneManager.LoadScene("MainMenu");
     }
     public void QuitButton()
     {
+        SoundManager.instance.buttonClick();
         Application.Quit();
     }
     public void LogOut()
     {
+        SoundManager.instance.buttonClick();
         FirebaseAuth.DefaultInstance.SignOut();
         GameManager.instance.currentPlayerID = null;
         GameManager.instance.currentPlayerPets = new Dictionary<string, Pet>();

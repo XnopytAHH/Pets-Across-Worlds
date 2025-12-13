@@ -28,6 +28,7 @@ public class FoodMenuBehaviour : MonoBehaviour
     }
     public void SpawnFood(string foodName)
     {
+        SoundManager.instance.buttonClick();
         GameObject foodObject = Instantiate(foodPrefabs[foodName], GameObject.Find(GameManager.instance.activePet).transform.position + new Vector3(0, 0.5f, 0), Quaternion.identity );
         CloseMenu();
     }

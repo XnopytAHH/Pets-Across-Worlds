@@ -68,6 +68,7 @@ public class Play : MonoBehaviour
                 ball.GetComponent<MeshRenderer>().enabled = false;
                 yield return new WaitForSeconds(1);
                 GameManager.instance.ShowGameOverUI(score);
+                SoundManager.instance.loseGame();
                 yield break;
 
             }

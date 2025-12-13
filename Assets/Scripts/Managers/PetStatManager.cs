@@ -54,7 +54,7 @@ public class PetStatManager : MonoBehaviour
     }
     public void SleepPet()
     {
-        
+        SoundManager.instance.buttonClick();
         StartCoroutine(SleepCoroutine());
         
     }
@@ -73,6 +73,7 @@ public class PetStatManager : MonoBehaviour
     }
     public void PlayWithPet()
     {
+        SoundManager.instance.buttonClick();
        isPaused = true;
        GameManager.instance.ShowGameStartUI();
         GameManager.instance.HideTodoList();
@@ -81,6 +82,7 @@ public class PetStatManager : MonoBehaviour
     
     public void FeedPet()
     {
+        SoundManager.instance.buttonClick();
         GameManager.instance.GetComponentInChildren<FoodMenuBehaviour>().OpenMenu();
         isPaused = true;
         GameManager.instance.HideTodoList();

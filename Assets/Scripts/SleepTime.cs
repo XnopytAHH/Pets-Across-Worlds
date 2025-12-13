@@ -22,6 +22,7 @@ public class SleepTime : MonoBehaviour
     }
     public void backToMainMenu()
     {
+        SoundManager.instance.buttonClick();
         UnityEngine.SceneManagement.SceneManager.LoadScene("LoginScreen");
     }
 }
