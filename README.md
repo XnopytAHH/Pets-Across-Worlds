@@ -50,7 +50,8 @@ While the pet is sleeping, they will not be able to be scanned in and instead sh
 
 ## Bugs and Limitations
 - In mobile builds of the game, the player must keep the tracked image in frame the whole time during the creation of the pet, or else the pet will not spawn
-
+- If the card is scanned not on a flat surface, pets can spawn sideways
+- Pets become buggy when multiple cards are scanned at once
 
 ## Credits
 ### Art and Assets
