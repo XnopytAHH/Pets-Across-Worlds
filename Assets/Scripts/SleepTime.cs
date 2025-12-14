@@ -24,5 +24,6 @@ public class SleepTime : MonoBehaviour
     {
         SoundManager.instance.buttonClick();
         UnityEngine.SceneManagement.SceneManager.LoadScene("LoginScreen");
+        GameManager.instance.activePet = null;
     }
 }
