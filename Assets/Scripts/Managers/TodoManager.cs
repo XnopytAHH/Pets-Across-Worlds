@@ -1,3 +1,8 @@
+/*
+* Author: Lim En Xu Jayson
+* Date: 12 December 2025
+* Description: Toggles todo sections based on completion of individual items.
+*/
 using UnityEngine;
 
 public class TodoManager : MonoBehaviour
@@ -8,6 +13,9 @@ public class TodoManager : MonoBehaviour
     GameObject todo1;
     [SerializeField]
     GameObject todo2;
+    /// <summary>
+    /// Switches UI sections depending on which todos are completed.
+    /// </summary>
     void Update()
     {
         int successful = 0;

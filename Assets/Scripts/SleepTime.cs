@@ -1,14 +1,18 @@
+/*
+* Author: Lim En Xu Jayson
+* Date: 14 November 2025
+* Description: Updates sleep timer UI and handles back navigation.
+*/
 using UnityEngine;
 
 public class SleepTime : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
+    
 
-    // Update is called once per frame
+    
+    /// <summary>
+    /// Updates the on-screen text with time until pet wakes.
+    /// </summary>
     void Update()
     {
         if (GameManager.instance.forcedSleep)
@@ -20,6 +24,9 @@ public class SleepTime : MonoBehaviour
         gameObject.GetComponent<TMPro.TextMeshProUGUI>().text = "Your pet will wake up in - " + (System.DateTime.Parse(GameManager.instance.currentPlayerPets[GameManager.instance.activePet].fullRestedTime) - System.DateTime.Now).ToString().Substring(0,8);;
         }
     }
+    /// <summary>
+    /// Returns to Login screen and clears active pet.
+    /// </summary>
     public void backToMainMenu()
     {
         SoundManager.instance.buttonClick();

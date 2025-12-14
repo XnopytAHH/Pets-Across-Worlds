@@ -1,10 +1,21 @@
+/*
+* Author: Lim En Xu Jayson
+* Date: 10 December 2025
+* Description: Handles mini-game loop for ball catch, scoring, and difficulty.
+*/
 using UnityEngine;
 using System.Collections;
 using UnityEngine.UIElements;
 
 public class Play : MonoBehaviour
 {
+    /// <summary>
+    /// Random X position used for spawn of tap target.
+    /// </summary>
     public float randomScreenX;
+    /// <summary>
+    /// Random Y position used for spawn of tap target.
+    /// </summary>
     public float randomScreenY;
     [SerializeField]
     GameObject buttonPrefab;
@@ -12,15 +23,27 @@ public class Play : MonoBehaviour
     Canvas canvas;
     [SerializeField]
     GameObject BallCatchArea;
+    /// <summary>
+    /// Whether the player tapped successfully.
+    /// </summary>
     public bool tapped = false;
     [SerializeField]
     GameObject ball;
+    /// <summary>
+    /// Current game score.
+    /// </summary>
     public int score = 0;
     float duration = 2.0f;
+    /// <summary>
+    /// Initializes references to the game UI.
+    /// </summary>
     void Start()
     {
         canvas = GameObject.Find("GameUI").GetComponent<Canvas>();
     }
+    /// <summary>
+    /// Starts the game loop and enables visuals.
+    /// </summary>
     public void StartGame()
     {
         StartCoroutine(GameLoop());
@@ -33,6 +56,9 @@ public class Play : MonoBehaviour
 
     }
     
+    /// <summary>
+    /// Core game loop handling spawns, taps, scoring, and difficulty.
+    /// </summary>
     IEnumerator GameLoop()
     {
         GameObject tapPosition = null;
@@ -76,6 +102,9 @@ public class Play : MonoBehaviour
             
         }
     }
+    /// <summary>
+    /// Moves ball toward tap target while revealing the button.
+    /// </summary>
     IEnumerator StartBallTravel(Vector3 targetPosition, GameObject tapPosition, float duration)
     {
         tapped = false;
@@ -109,6 +138,9 @@ public class Play : MonoBehaviour
         
 
     }
+    /// <summary>
+    /// Returns ball to the catch area.
+    /// </summary>
     IEnumerator StartBallReturn(Vector3 targetPosition, float duration)
     {
         
@@ -130,6 +162,9 @@ public class Play : MonoBehaviour
         ball.transform.position = end; // snap to final
         
     }
+    /// <summary>
+    /// Waits for player input with a timeout of current duration.
+    /// </summary>
     IEnumerator WaitForTap()
     {
         float tapTimeCounter = 0f;

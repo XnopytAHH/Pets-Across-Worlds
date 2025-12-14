@@ -1,3 +1,8 @@
+/*
+* Author: Lim En Xu Jayson (Based on original by Elyas Chua-Aziz)
+* Date: 9 November 2025
+* Description: Tracks AR reference images and manages spawning/updating pet prefabs.
+*/
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.XR.ARFoundation;
@@ -9,18 +14,42 @@ using System.Collections;
 
 public class ImageTracker : MonoBehaviour
 {
+    /// <summary>
+    /// ARTrackedImageManager responsible for tracking reference images.
+    /// </summary>
     [SerializeField]
     private ARTrackedImageManager trackedImageManager;
 
+    /// <summary>
+    /// Prefabs that can be spawned when their corresponding image is tracked.
+    /// </summary>
     [SerializeField]
     private GameObject[] placeablePrefabs;
 
+    /// <summary>
+    /// Runtime instances of spawned prefabs keyed by reference image name.
+    /// </summary>
     private Dictionary<string, GameObject> spawnedPrefabs = new Dictionary<string, GameObject>();
+    /// <summary>
+    /// Whether a pet already exists in the player's data.
+    /// </summary>
     public bool petExists = false;
+    /// <summary>
+    /// Whether a pet is currently active in the scene.
+    /// </summary>
     public bool petActive = false;
+    /// <summary>
+    /// Current game state used by the tracker.
+    /// </summary>
     public string currentGameState = "WaitingForPet";
+    /// <summary>
+    /// UI text shown while scanning for images.
+    /// </summary>
     [SerializeField]
     public GameObject scanText;
+    /// <summary>
+    /// Initializes tracking and prefab setup.
+    /// </summary>
     private void Start()
     {
         if (trackedImageManager != null)
@@ -32,6 +61,9 @@ public class ImageTracker : MonoBehaviour
     }
     
 
+    /// <summary>
+    /// Instantiates and registers all placeable prefabs.
+    /// </summary>
     void SetupPrefabs()
     {
         foreach (GameObject prefab in placeablePrefabs)
@@ -43,6 +75,9 @@ public class ImageTracker : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Handles tracked image add/update/remove events.
+    /// </summary>
     void OnImageChanged(ARTrackablesChangedEventArgs<ARTrackedImage> eventArgs)
     {
         foreach (ARTrackedImage trackedImage in eventArgs.added)
@@ -61,6 +96,9 @@ public class ImageTracker : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Updates scene content in response to tracked image state changes.
+    /// </summary>
     public void UpdateImage(ARTrackedImage trackedImage)
     {
         if (trackedImage != null)

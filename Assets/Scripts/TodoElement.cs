@@ -1,3 +1,8 @@
+/*
+* Author: Lim En Xu Jayson
+* Date: 12 December 2025
+* Description: Controls individual to-do UI items based on pet stats thresholds.
+*/
 using TMPro;
 using UnityEngine;
 
@@ -9,13 +14,11 @@ public class TodoElement : MonoBehaviour
     private string Threshold;
     public bool IsCompleted;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
+    
+   
+    /// <summary>
+    /// Updates strike-through and color depending on stat thresholds.
+    /// </summary>
     void Update()
     {
         if (GameManager.instance.activePet == null) return;

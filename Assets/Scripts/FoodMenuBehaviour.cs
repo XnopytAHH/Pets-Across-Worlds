@@ -1,3 +1,8 @@
+/*
+* Author: Lim En Xu Jayson
+* Date: 8 Decem 2025
+* Description: Displays food menu UI, spawns selected food, and toggles todo UI.
+*/
 using UnityEngine;
 using System.Collections.Generic;
 using UnityEngine.SceneManagement;
@@ -10,6 +15,9 @@ public class FoodMenuBehaviour : MonoBehaviour
     private GameObject[] foodPrefabList;
     public Dictionary<string, GameObject> foodPrefabs;
     Canvas foodMenuCanvas;
+    /// <summary>
+    /// Initializes menu, builds food prefab dictionary, and hides UI.
+    /// </summary>
     void Start()
     {
         foodMenuCanvas = gameObject.GetComponent<Canvas>();
@@ -21,11 +29,9 @@ public class FoodMenuBehaviour : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    /// <summary>
+    /// Spawns selected food near active pet and closes the menu.
+    /// </summary>
     public void SpawnFood(string foodName)
     {
         SoundManager.instance.buttonClick();
@@ -34,6 +40,9 @@ public class FoodMenuBehaviour : MonoBehaviour
         GameObject.FindGameObjectWithTag("ActivePet").GetComponent<PetBehaviour>().LookAtFood(foodObject);
         CloseMenu();
     }
+    /// <summary>
+    /// Hides the food menu and (in MainMenu) re-shows the todo UI.
+    /// </summary>
     public void CloseMenu()
     {
         gameObject.GetComponent<Canvas>().enabled = false;
@@ -43,6 +52,9 @@ public class FoodMenuBehaviour : MonoBehaviour
         }
         
     }
+    /// <summary>
+    /// Shows the food menu and hides the todo UI.
+    /// </summary>
     public void OpenMenu()
     {
         gameObject.GetComponent<Canvas>().enabled = true;

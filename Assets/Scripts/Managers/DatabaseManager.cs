@@ -1,4 +1,8 @@
-
+/*
+* Author: Lim En Xu Jayson
+* Date: 17 November 2025
+* Description: Manages database interactions for loading and saving player data.
+*/
 using System.Data.Common;
 using UnityEngine;
 using Firebase.Database;
@@ -7,9 +11,18 @@ using System.Threading.Tasks;
 
 public class DatabaseManager : MonoBehaviour
 {
+    /// <summary>
+    /// Singleton instance of the DatabaseManager.
+    /// </summary>
     public static DatabaseManager instance;
+    /// <summary>
+    /// Reference to the Firebase Realtime Database.
+    /// </summary>
     DatabaseReference db;
-    // Use this for initialization if needed
+    
+    /// <summary>
+    /// Initializes the DatabaseManager and sets up the Firebase database reference.
+    /// </summary>
     void Start()
     {
         db = FirebaseDatabase.DefaultInstance.RootReference;
@@ -24,6 +37,9 @@ public class DatabaseManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Loads player data from the Firebase Realtime Database and loads the data to GameManager.
+    /// </summary>
     public async Task LoadPlayerData(string playerId)
     {
         try
@@ -58,6 +74,10 @@ public class DatabaseManager : MonoBehaviour
             Debug.LogError("Failed to load player data: " + e.Message);
         }
     }
+
+    /// <summary>
+    /// Saves player data to the Firebase Realtime Database from GameManager.
+    /// </summary>
     public async Task SavePlayerData(string playerId)
     {
         try

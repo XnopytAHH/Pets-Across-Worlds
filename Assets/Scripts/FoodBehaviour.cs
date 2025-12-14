@@ -1,3 +1,8 @@
+/*
+* Author: Lim En Xu Jayson
+* Date: 8 December 2025
+* Description: Handles food items approaching the pet and applying food effects.
+*/
 using System.Collections.Generic;
 using Unity.XR.CoreUtils;
 using UnityEditor;
@@ -8,6 +13,9 @@ public class FoodBehaviour : MonoBehaviour
     Vector2 petScreenPosition;
     Vector2 foodScreenPosition;
     
+    /// <summary>
+    /// Checks proximity to pet and applies food effects.
+    /// </summary>
     void Update()
     {   
         if (GameManager.instance.activePet != null)
@@ -43,6 +51,9 @@ public class FoodBehaviour : MonoBehaviour
         }
         
     }
+    /// <summary>
+    /// Returns 1 if favorite, 0 if neutral, -1 if disliked.
+    /// </summary>
     int checkFavoriteFood(string foodName)
     {
         string petType = GameManager.instance.activePet;

@@ -1,3 +1,8 @@
+/*
+* Author: Lim En Xu Jayson
+* Date: 8 December 2025
+* Description: Controls pet NavMesh movement and state machine; provides location refs.
+*/
 using UnityEngine;
 
 using System.Collections;
@@ -21,6 +26,9 @@ public class PetLocationRef : MonoBehaviour
     [SerializeField]
     private GameObject restUI;
 
+    /// <summary>
+    /// Initializes NavMesh agent and starts the current state.
+    /// </summary>
     void Start()
     {
         npcAgent = GetComponent<NavMeshAgent>();
@@ -29,6 +37,9 @@ public class PetLocationRef : MonoBehaviour
 
     }
 
+    /// <summary>
+    /// Moves the pet toward a patrol point while in Walking state.
+    /// </summary>
     IEnumerator Walking()
     {
         Debug.Log("Started Walking");
@@ -46,6 +57,9 @@ public class PetLocationRef : MonoBehaviour
         }
 
     }
+    /// <summary>
+    /// Faces the camera and pauses NavMesh rotation while playing.
+    /// </summary>
     IEnumerator Playing()
     {
         Debug.Log("Started Playing");
@@ -63,6 +77,9 @@ public class PetLocationRef : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Idles, samples a new patrol point on NavMesh, and waits.
+    /// </summary>
     IEnumerator Idle()
     {
         npcAgent.isStopped = true;
@@ -94,6 +111,9 @@ public class PetLocationRef : MonoBehaviour
             yield return null;
         }
     }
+    /// <summary>
+    /// After a delay, transitions from Idle to Walking.
+    /// </summary>
     IEnumerator IdleTimer()
     {
         yield return new WaitForSeconds(3f);
@@ -104,6 +124,9 @@ public class PetLocationRef : MonoBehaviour
 
         }
     }
+    /// <summary>
+    /// Stops the current state coroutine and starts the new one.
+    /// </summary>
     public IEnumerator SwitchStates(string newState)
     {
         npcAgent.updateRotation = true; // Re-enable automatic rotation
@@ -114,6 +137,9 @@ public class PetLocationRef : MonoBehaviour
         Debug.Log("Switched to state: " + currentState);
         yield return null;
     }
+    /// <summary>
+    /// Converts world position to scaled grid offset for AR plane.
+    /// </summary>
     public Vector3 GetPetPosition(float smallScale)
     {
         float scaleFactor = smallScale / GameObject.Find("Plane Ref").transform.localScale.x;
@@ -124,10 +150,16 @@ public class PetLocationRef : MonoBehaviour
         return new Vector3(scaleOffset.x, 0, scaleOffset.y);
 
     }
+    /// <summary>
+    /// Returns the pet's current rotation.
+    /// </summary>
     public Quaternion GetRotation()
     {
         return transform.rotation;
     }
+    /// <summary>
+    /// Turns pet toward food smoothly.
+    /// </summary>
     public IEnumerator FaceFood(Quaternion foodRotation)
     {
         StartCoroutine(SwitchStates("Idle"));

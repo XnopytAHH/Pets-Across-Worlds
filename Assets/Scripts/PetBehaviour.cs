@@ -1,3 +1,8 @@
+/*
+* Author: Lim En Xu Jayson
+* Date: 9 November 2025
+* Description: Controls pet visuals, UI state, reactions, and stat-up VFX.
+*/
 using UnityEngine;
 using UnityEngine.VFX;
 using System.Collections;
@@ -6,27 +11,57 @@ using Unity.XR.CoreUtils;
 using TMPro;
 public class PetBehaviour : MonoBehaviour
 {
+    /// <summary>
+    /// Reference to the pet's 3D model.
+    /// </summary>
     [SerializeField]
     GameObject petModel;    
+    /// <summary>
+    /// Whether the pet is awake.
+    /// </summary>
     public bool petAwake = true;
+    /// <summary>
+    /// UI canvas and elements associated with the pet.
+    /// </summary>
     [SerializeField]
     public GameObject petUI;
+    /// <summary>
+    /// UI shown when the pet is resting.
+    /// </summary>
     [SerializeField]
     private GameObject restUI;
+    /// <summary>
+    /// VFX graph used to show stat increases.
+    /// </summary>
     [SerializeField]
     VisualEffect statUpVFX;
+    /// <summary>
+    /// Texture used when mood stat increases.
+    /// </summary>
     [SerializeField]
     Texture2D moodStatUpTexture;
+    /// <summary>
+    /// Texture used when food stat increases.
+    /// </summary>
     [SerializeField]
     Texture2D foodStatUpTexture;
+    /// <summary>
+    /// Exclamation indicator prefab spawned on attention events.
+    /// </summary>
     [SerializeField]
     GameObject exclaimPrefab;
     
 
+    /// <summary>
+    /// Initializes visual effects.
+    /// </summary>
     void Start()
     {
         statUpVFX.Stop();
     }
+    /// <summary>
+    /// Updates pet activation state and positions relative to AR content.
+    /// </summary>
     void Update()
     {
         if(!petAwake)
@@ -48,6 +83,9 @@ public class PetBehaviour : MonoBehaviour
         offsetPosition.y = gameObject.transform.position.y;
         gameObject.transform.position = offsetPosition;
     }
+    /// <summary>
+    /// Hides pet UI and enters playing state.
+    /// </summary>
     public void StartPlaying()
     {
         Debug.Log("Pet Started Playing");
@@ -55,11 +93,17 @@ public class PetBehaviour : MonoBehaviour
         StartCoroutine(GameObject.Find("Location Ref").GetComponent<PetLocationRef>().SwitchStates("Playing"));
     }
 
+    /// <summary>
+    /// Updates the sleep UI with time remaining until wake.
+    /// </summary>
     public void UpdateRestUI(string timeTillWake)
     {
         restUI.GetComponentInChildren<TextMeshProUGUI>().text = GameManager.instance.currentPlayerPets[gameObject.transform.parent.name].petName + " is asleep! They will wake up in " + timeTillWake.Substring(0, 8);
         
     }
+    /// <summary>
+    /// Plays stat-up VFX for the specified stat.
+    /// </summary>
     public IEnumerator PlayStatUpVFX(string statName)
     {
         if (statName == "mood")
@@ -76,6 +120,9 @@ public class PetBehaviour : MonoBehaviour
         statUpVFX.Stop();
         yield return null;
     }
+    /// <summary>
+    /// Rotates pet toward food and spawns an exclaim indicator.
+    /// </summary>
     public void LookAtFood(GameObject target)
     {
         Vector3 directionToFood = target.transform.position - transform.position;

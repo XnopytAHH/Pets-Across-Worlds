@@ -1,3 +1,8 @@
+/*
+* Author: Lim En Xu Jayson
+* Date: 9 November 2025
+* Description: Handles login/register UI flow and Firebase auth integration.
+*/
 using UnityEngine;
 using TMPro;
 using Firebase.Auth;
@@ -21,6 +26,9 @@ public class LoginAndRegister : MonoBehaviour
     [SerializeField]
     TextMeshProUGUI registerErrorText;
     private bool isLoggingIn = true;
+    /// <summary>
+    /// Initializes UI visibility depending on login state and hides todo UI.
+    /// </summary>
     public void Start()
     {
         if (GameManager.instance.currentPlayerID != null && GameManager.instance.currentPlayerID != "")
@@ -40,6 +48,9 @@ public class LoginAndRegister : MonoBehaviour
             
         
     }
+    /// <summary>
+    /// Toggles between Login and Register UIs.
+    /// </summary>
     public void changeMenu()
     {
         SoundManager.instance.buttonClick();
@@ -47,6 +58,9 @@ public class LoginAndRegister : MonoBehaviour
         loginUI.SetActive(isLoggingIn);
         registerUI.SetActive(!isLoggingIn);
     }
+    /// <summary>
+    /// Performs login or registration, shows errors, and starts wait coroutine.
+    /// </summary>
     public void LogInOrRegister()
     {
         SoundManager.instance.buttonClick();
@@ -149,6 +163,9 @@ public class LoginAndRegister : MonoBehaviour
 
 
     }
+    /// <summary>
+    /// Waits until auth completes, writes username for new users, loads data, and updates UI.
+    /// </summary>
     IEnumerator waitForLogin()
     {
         while (GameManager.instance.currentPlayerID == null || GameManager.instance.currentPlayerID == "")
@@ -172,16 +189,25 @@ public class LoginAndRegister : MonoBehaviour
         Debug.Log("Logged in as: " + GameManager.instance.currentPlayerName);
         mainMenuUI.GetNamedChild("Username").GetComponent<TextMeshProUGUI>().text = GameManager.instance.currentPlayerName;
     }
+    /// <summary>
+    /// Loads the MainMenu scene.
+    /// </summary>
     public void StartButton()
     {
         SoundManager.instance.buttonClick();
     SceneManager.LoadScene("MainMenu");
     }
+    /// <summary>
+    /// Quits the application.
+    /// </summary>
     public void QuitButton()
     {
         SoundManager.instance.buttonClick();
         Application.Quit();
     }
+    /// <summary>
+    /// Signs out and resets local player state; shows login UI.
+    /// </summary>
     public void LogOut()
     {
         SoundManager.instance.buttonClick();
